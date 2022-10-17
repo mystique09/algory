@@ -8,9 +8,6 @@
     </div>
     
     <div class="flex-none gap-2">
-        <div class="form-control">
-            <input type="text" name="search" id="search" class="input input-bordered" placeholder="Search">
-        </div>
         <div class="dropdown dropdown-end">
             <span tabindex="-1" class="btn btn-ghost btn-circle avatar">
                 <div class="w-10 rounded-full">
