@@ -1,17 +1,22 @@
+<script lang="ts">
+	import type { ActionData } from './$types';
+	export let form: ActionData;
+</script>
+
 <div class="main">
 	<div class="wrap">
-		<form>
+		<form method="POST" action="?/login">
 			<div class="form-logo">
 				<img src="/images/algory.svg" alt="Algory logo" />
 			</div>
 			<div class="input-group">
-				<label for="username" />
+				<label for="email" />
 				<input
 					class="input input-normal input-bordered"
-					id="username"
-					name="username"
-					type="text"
-					placeholder="Username"
+					id="email"
+					name="email"
+					type="email"
+					placeholder="Email"
 					required
 				/>
 			</div>
@@ -33,6 +38,11 @@
 					type="submit">Sign in</button
 				>
 			</div>
+			{#if form?.success}
+				<p>Logged in!</p>
+			{:else if form?.incorrect}
+				<p>{form?.message}</p>
+			{/if}
 			<p class="text-center text-sm mt-4">
 				New to Algory? <a class="text-accent" href="/sign-up">Create an account</a>
 			</p>
