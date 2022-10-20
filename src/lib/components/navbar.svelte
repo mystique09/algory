@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from "$app/stores";
+	import { page } from '$app/stores';
 </script>
 
 <div class="navbar bg-secondary max-w-7xl m-auto">
@@ -18,7 +18,7 @@
 				tabindex="-1"
 				class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-secondary rounded-box w-52"
 			>
-				{#if $page.data.session}
+				{#if $page.data.session.user}
 					<li>
 						<a href="/profile" class="justify-between">
 							Profile
