@@ -39,8 +39,8 @@
 				>
 			</div>
 			{#if form?.success}
-				<p>Logged in!</p>
-			{:else if form?.incorrect}
+				<p>{form?.message}</p>
+			{:else if !form?.success}
 				<p>{form?.message}</p>
 			{/if}
 			<p class="text-center text-sm mt-4">
