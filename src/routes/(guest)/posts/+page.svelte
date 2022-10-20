@@ -1,1 +1,1 @@
-<h1>Poasts</h1>
+<h1>Posts</h1>
