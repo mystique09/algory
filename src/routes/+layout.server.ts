@@ -1,9 +1,7 @@
-import type { LayoutData } from ".svelte-kit/types/src/routes/$types";
+import type { LayoutServerLoad } from ".svelte-kit/types/src/routes/$types";
 
-export const load: LayoutData = async ({parent}) => {
-  const {session} = await parent();
-  
+export const load: LayoutServerLoad = async ({ locals }) => {
   return {
-    session
+    session: locals.session
   };
 }
