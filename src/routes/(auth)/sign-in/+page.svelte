@@ -10,7 +10,7 @@
 				<img src="/images/algory.svg" alt="Algory logo" />
 			</div>
 			<div class="input-group">
-				<label for="email" />
+				<label for="email" class:text-red-700={form?.credentials}>Email</label>
 				<input
 					class="input input-normal input-bordered"
 					id="email"
@@ -21,7 +21,9 @@
 				/>
 			</div>
 			<div class="input-group">
-				<label for="password" />
+				<label for="password" class:text-red-700={form?.password || form?.credentials}
+					>Password</label
+				>
 				<input
 					class="input input-normal input-bordered"
 					id="password"
@@ -31,6 +33,8 @@
 					required
 				/>
 			</div>
+			<p class="text-green-700 text-base font-bold">{form?.success ? form?.message : ''}</p>
+			<p class="text-red-700 text-base font-bold">{form?.failed ? form?.message : ''}</p>
 			<a href="/forot-password" class="text-base text-accent">Forgot password?</a>
 			<div class="flex items-center justify-center w-full mt-6">
 				<button
@@ -38,11 +42,6 @@
 					type="submit">Sign in</button
 				>
 			</div>
-			{#if form?.success}
-				<p>{form?.message}</p>
-			{:else if !form?.success}
-				<p>{form?.message}</p>
-			{/if}
 			<p class="text-center text-sm mt-4">
 				New to Algory? <a class="text-accent" href="/sign-up">Create an account</a>
 			</p>
@@ -76,6 +75,11 @@
 	}
 
 	form > .input-group {
+		@apply flex flex-col;
 		@apply mb-4;
+	}
+
+	form > .input-group label {
+		@apply text-sm;
 	}
 </style>
