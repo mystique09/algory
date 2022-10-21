@@ -9,6 +9,7 @@ export const load: PageServerLoad = async ({ parent }) => {
   }
   
   return {
-    profile: session.user.profile
+    profile: session.user.profile,
+    email: session.user.email
   }
 }

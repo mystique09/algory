@@ -1,7 +1,6 @@
-import PocketBase from 'pocketbase';
 import { invalid, redirect, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from '.svelte-kit/types/src/routes/(auth)/sign-in/$types';
-const pbClient = new PocketBase(process.env.POCKETBASE_URL || "http://localhost:8090");
+import { pbClient } from "$lib/db/pocketbase";
 
 export const load: PageServerLoad = async ({ parent }) => {
   const { session } = await parent();
@@ -20,17 +19,11 @@ export const actions: Actions = {
     const password = data.get('password');
 
     if (!email || !password) {
-      return invalid(400, { credentials: true, missing: true });
+      return invalid(400, { credentials: true, message: "Missing required fields" });
     }
 
     try {
       const user = await pbClient.users.authViaEmail(email as string, password as string);
-
-      const { errorDetails, errorMessage } = user;
-
-      if (!!errorDetails || !!errorMessage) {
-        return invalid(400, { credentials: true, message: errorDetails });
-      }
 
       const session = {
         id: user.id,
@@ -55,8 +48,9 @@ export const actions: Actions = {
       });
 
       return { success: true, message: "Logged in successfully" };
-    } catch (e) {
-      return { success: false, message: "Something went wrong." }
+    } catch (e: any) {
+      const { message } = e;
+      return invalid(e.status, { failed: true, message });
     }
   }
 };

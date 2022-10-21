@@ -1,11 +1,16 @@
+<script lang="ts">
+	import type { ActionData } from './$types';
+	export let form: ActionData;
+</script>
+
 <div class="main">
 	<div class="wrap">
-		<form>
+		<form method="POST" action="?/signup">
 			<div class="form-logo">
 				<img src="/images/algory.svg" alt="Algory logo" />
 			</div>
 			<div class="input-group">
-				<label for="username" />
+				<label for="username">Username</label>
 				<input
 					class="input input-normal input-bordered"
 					id="username"
@@ -16,7 +21,7 @@
 				/>
 			</div>
 			<div class="input-group">
-				<label for="email" />
+				<label class:text-red-700={form?.credentials || form?.email} for="email">Email</label>
 				<input
 					class="input input-normal input-bordered"
 					id="email"
@@ -27,7 +32,9 @@
 				/>
 			</div>
 			<div class="input-group">
-				<label for="password" />
+				<label for="password" class:text-red-700={form?.password || form?.credentials}
+					>Password</label
+				>
 				<input
 					class="input input-normal input-bordered"
 					id="password"
@@ -37,6 +44,25 @@
 					required
 				/>
 			</div>
+			<div class="input-group">
+				<label for="confirm-password" class:text-red-700={form?.confirm || form?.credentials}
+					>Confirm password</label
+				>
+				<input
+					class="input input-normal input-bordered"
+					id="confirm-password"
+					name="confirm-password"
+					type="password"
+					placeholder="Confirm Password"
+					required
+				/>
+			</div>
+			<p class="text-green-700 text-base font-bold">{form?.success ? form?.message : ''}</p>
+			<p class="text-red-700 text-base font-bold">
+				{form?.password || form?.credentials || form?.username || form?.email || form?.confirm
+					? form?.message
+					: ''}
+			</p>
 			<div class="flex items-center justify-center w-full mt-6">
 				<button
 					class="btn btn-lg bg-primary border-none btn-block btn-wide text-white"
@@ -76,6 +102,11 @@
 	}
 
 	form > .input-group {
+		@apply flex flex-col;
 		@apply mb-4;
+	}
+
+	form > .input-group label {
+		@apply text-sm;
 	}
 </style>
