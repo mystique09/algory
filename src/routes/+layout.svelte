@@ -10,5 +10,7 @@
 
 <Navbar />
 <Toast />
-<slot />
+<div class="relative mt-20">
+	<slot />
+</div>
 <Footer />
