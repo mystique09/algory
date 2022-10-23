@@ -1,11 +1,22 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+	import { invalidateAll } from '$app/navigation';
+	import { toast, ToastType } from '$lib/stores/toast';
+
 	import type { ActionData } from './$types';
 	export let form: ActionData;
+
+	if (browser) {
+		invalidateAll();
+	}
+	
+	$toast = {type: form?.success ? ToastType.SUCCESS : ToastType.ERROR, message: form?.message}
 </script>
 
 <div class="main">
 	<div class="wrap">
 		<form method="POST" action="?/login">
+			<a href="/" class="text-lg text-accent">Back</a>
 			<div class="form-logo">
 				<img src="/images/algory.svg" alt="Algory logo" />
 			</div>
@@ -21,8 +32,7 @@
 				/>
 			</div>
 			<div class="input-group">
-				<label for="password" class:text-red-700={form?.password || form?.credentials}
-					>Password</label
+				<label for="password" class:text-red-700={form?.failed || form?.credentials}>Password</label
 				>
 				<input
 					class="input input-normal input-bordered"
@@ -33,8 +43,6 @@
 					required
 				/>
 			</div>
-			<p class="text-green-700 text-base font-bold">{form?.success ? form?.message : ''}</p>
-			<p class="text-red-700 text-base font-bold">{form?.failed ? form?.message : ''}</p>
 			<a href="/forot-password" class="text-base text-accent">Forgot password?</a>
 			<div class="flex items-center justify-center w-full mt-6">
 				<button

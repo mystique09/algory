@@ -1,11 +1,15 @@
 <script lang="ts">
 	import type { ActionData } from './$types';
 	export let form: ActionData;
+
+	import { toast, ToastType } from '$lib/stores/toast';
+	$toast = { type: form?.success ? ToastType.SUCCESS : ToastType.ERROR, message: form?.message };
 </script>
 
 <div class="main">
 	<div class="wrap">
 		<form method="POST" action="?/signup">
+			<a href="/" class="text-lg text-accent">Back</a>
 			<div class="form-logo">
 				<img src="/images/algory.svg" alt="Algory logo" />
 			</div>
@@ -57,12 +61,6 @@
 					required
 				/>
 			</div>
-			<p class="text-green-700 text-base font-bold">{form?.success ? form?.message : ''}</p>
-			<p class="text-red-700 text-base font-bold">
-				{form?.password || form?.credentials || form?.username || form?.email || form?.confirm
-					? form?.message
-					: ''}
-			</p>
 			<div class="flex items-center justify-center w-full mt-6">
 				<button
 					class="btn btn-lg bg-primary border-none btn-block btn-wide text-white"
