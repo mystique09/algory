@@ -1,6 +1,13 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+	import { invalidateAll } from '$app/navigation';
+
 	import type { ActionData } from './$types';
 	export let form: ActionData;
+
+	if (browser) {
+		invalidateAll();
+	}
 </script>
 
 <div class="main">
@@ -22,8 +29,7 @@
 				/>
 			</div>
 			<div class="input-group">
-				<label for="password" class:text-red-700={form?.failed || form?.credentials}
-					>Password</label
+				<label for="password" class:text-red-700={form?.failed || form?.credentials}>Password</label
 				>
 				<input
 					class="input input-normal input-bordered"
