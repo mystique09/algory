@@ -1,4 +1,4 @@
-<div class="hero min-h-screen bg-base-120">
+<div class="hero h-screen bg-base-120">
 	<div class="hero-content">
 		<div class="max-w-lg">
 			<h1 class="text-5xl font-bold text-primary">Algory</h1>

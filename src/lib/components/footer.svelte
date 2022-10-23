@@ -6,7 +6,7 @@
 	<footer>
 		<div class="wrap">
 			<ul>
-				<li><a href="/questions">Quesions</a></li>
+				<li><a href="/questions">Questions</a></li>
 				<li><a href="/explore">Explore</a></li>
 				<li><a href="/settings">Settings</a></li>
 			</ul>
@@ -16,7 +16,7 @@
 
 <style lang="postcss">
 	footer {
-		@apply absolute bottom-0 left-0;
+		@apply fixed bottom-0 left-0 bg-white;
 		@apply w-full;
 	}
 

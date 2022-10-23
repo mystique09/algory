@@ -18,8 +18,8 @@
 	};
 </script>
 
-<div class="main">
-	<div class="navbar flex item-start justify-between p-2 bg-gray-100/20">
+<div class="main fixed top-0 left-0 w-full">
+	<div class="navbar flex item-start justify-between p-2">
 		{#if !!$page.data.session.user}
 			<button type="button" class="logo avatar btn btn-ghost" on:click={showNav}>
 				<div class="logo w-10 h-10 rounded-full ring ring-accent">
@@ -108,8 +108,8 @@
 
 <style lang="postcss">
 	.main {
-		@apply bg-gray-100/50 shadow-md;
-		@apply px-4;
+		@apply bg-gray-100 shadow-md;
+		@apply px-4 z-10;
 	}
 
 	.container {
