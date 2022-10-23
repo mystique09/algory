@@ -16,7 +16,7 @@
 
 <style lang="postcss">
 	footer {
-		@apply fixed bottom-0 left-0;
+		@apply fixed bottom-0 left-0 bg-white;
 		@apply w-full;
 	}
 
