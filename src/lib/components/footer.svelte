@@ -2,15 +2,17 @@
 	import { page } from '$app/stores';
 </script>
 
-<footer class:hidden={!$page.data.session.user}>
-	<div class="wrap">
-		<ul>
-			<li><a href="/">Home</a></li>
-			<li><a href="/explore">Explore</a></li>
-			<li><a href="/settings">Settings</a></li>
-		</ul>
-	</div>
-</footer>
+{#if !!$page.data.session.user}
+	<footer>
+		<div class="wrap">
+			<ul>
+				<li><a href="/questions">Quesions</a></li>
+				<li><a href="/explore">Explore</a></li>
+				<li><a href="/settings">Settings</a></li>
+			</ul>
+		</div>
+	</footer>
+{/if}
 
 <style lang="postcss">
 	footer {
