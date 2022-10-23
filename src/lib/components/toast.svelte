@@ -5,21 +5,23 @@
 	}, 2000);
 </script>
 
-<div class="toast toast-top toast-end" class:hidden={!$toast.message}>
-	<div
-		class={`alert ${
-			$toast.type === 1
-				? 'alert-error'
-				: $toast.type === 2
-				? 'alert-success'
-				: $toast.type === 3
-				? 'alert-info'
-				: ''
-		}`}
-	>
-		<div><span>{$toast.message}</span></div>
+{#if $toast.message}
+	<div class="toast toast-top toast-end" class:hidden={!$toast.message}>
+		<div
+			class={`alert ${
+				$toast.type === 1
+					? 'alert-error'
+					: $toast.type === 2
+					? 'alert-success'
+					: $toast.type === 3
+					? 'alert-info'
+					: ''
+			}`}
+		>
+			<div><span>{$toast.message}</span></div>
+		</div>
 	</div>
-</div>
+{/if}
 
 <style lang="postcss">
 	.toast {
