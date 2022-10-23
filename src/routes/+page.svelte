@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { page } from "$app/stores";
-
-
+	import { page } from '$app/stores';
 </script>
 
 {#if $page.data.session.user}
@@ -22,14 +20,14 @@
 				</p>
 				<a
 					href="/sign-up"
-					class="signup btn btn-md rounded-sm text-base bg-primary hover:bg-accent nt border-none"
+					class="signup btn btn-md rounded-full text-primary bg-white hover:bg-primary hover:text-white border-none ring ring-primary"
 					>Ready? Click to Join!</a
 				>
-				<div class="py-8 flex flex-row max-w-md">
+				<div class="py-8 flex flex-col-reverse max-w-md items-start">
+					<span class="text-xs font-semibold">Repository</span>
 					<a href="https://github.com/mystique09/algory">
 						<img class="h-12 w-12" src="/images/github.svg" alt="Github icon" />
 					</a>
-					<span class="text-sm">Visit repository</span>
 				</div>
 			</div>
 		</div>
