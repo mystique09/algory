@@ -23,12 +23,6 @@
 					class="signup btn btn-md rounded-full text-primary bg-white hover:bg-primary hover:text-white border-none ring ring-primary"
 					>Ready? Click to Join!</a
 				>
-				<div class="py-8 flex flex-col-reverse max-w-md items-start">
-					<span class="text-xs font-semibold">Repository</span>
-					<a href="https://github.com/mystique09/algory">
-						<img class="h-12 w-12" src="/images/github.svg" alt="Github icon" />
-					</a>
-				</div>
 			</div>
 		</div>
 	</div>
