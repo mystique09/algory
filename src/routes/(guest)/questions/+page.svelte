@@ -17,7 +17,17 @@
 			<Question />
 			<Question />
 			<Question />
+			<Question />
+			<Question />
+			<Question />
 		</div>
+	</div>
+	<div class="btn-group flex items-center justify-center m-4 gap-1">
+		<button class="btn">1</button>
+		<button class="btn">2</button>
+		<button class="btn btn-disabled">...</button>
+		<button class="btn">19</button>
+		<button class="btn">20</button>
 	</div>
 </div>
 
