@@ -12,7 +12,7 @@
 			<p>100 questions</p>
 		</div>
 		<div class="divider" />
-		<div class="questions">
+		<div class="questions flex flex-col items-center justify-center">
 			<Question />
 			<Question />
 			<Question />
