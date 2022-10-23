@@ -18,7 +18,7 @@
 	};
 </script>
 
-<div class="main">
+<div class="main fixed top-0 left-0 w-full">
 	<div class="navbar flex item-start justify-between p-2">
 		{#if !!$page.data.session.user}
 			<button type="button" class="logo avatar btn btn-ghost" on:click={showNav}>
