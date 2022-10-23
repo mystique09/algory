@@ -1,8 +1,20 @@
 <script lang="ts">
+	import { invalidateAll } from '$app/navigation';
+
 	import { page } from '$app/stores';
 	let isVisible = false;
 
 	const showNav = () => (isVisible = !isVisible);
+
+	const signOut = async () => {
+		await fetch('/logout', {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+		await invalidateAll();
+	};
 </script>
 
 <div class="main" class:hidden={!$page.data.session.user}>
@@ -38,6 +50,8 @@
 						<a href="/settings">Settings</a>
 					</li>
 				</ul>
+				<div class="divider" />
+				<button type="button" on:click={signOut} href="/logout">Logout</button>
 			</div>
 		</div>
 	</div>
