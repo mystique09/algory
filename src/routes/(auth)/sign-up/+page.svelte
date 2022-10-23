@@ -6,6 +6,7 @@
 <div class="main">
 	<div class="wrap">
 		<form method="POST" action="?/signup">
+			<a href="/" class="text-lg text-accent">Back</a>
 			<div class="form-logo">
 				<img src="/images/algory.svg" alt="Algory logo" />
 			</div>
