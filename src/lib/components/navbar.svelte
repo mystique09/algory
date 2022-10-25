@@ -89,7 +89,7 @@
 
 					{#if !!$page.data.session.user}
 						<li on:click={showNav} on:keydown={showNav}>
-							<a href="/profile">Profile</a>
+							<a href={`/users/${$page.data.session.user.id}`}>Profile</a>
 						</li>
 						<li on:click={showNav} on:keydown={showNav}>
 							<a href="/settings">Settings</a>
