@@ -18,7 +18,7 @@
 	<div class="info flex flex-wrap gap-2 items-center justify-between mt-4">
 		<div class="tags">
 			{#each tags.split(', ') as tag}
-				<span class="text-xs p-1 bg-primary/20 text-primary m-1">{tag}</span>
+				<a href={`/explore/${tag}`} class="text-xs p-1 bg-primary/20 text-primary m-1">{tag}</a>
 			{/each}
 		</div>
 		<div class="profile flex items-center">
