@@ -1,8 +1,10 @@
-<script>
+<script lang="ts">
 	import Question from '$lib/components/question.svelte';
+	import type { PageData } from './$types';
+	export let data: PageData;
 </script>
 
-<div class="container">
+<div class="container mb-24">
 	<div class="content px-4">
 		<div class="heading">
 			<h1>All questions</h1>
@@ -13,21 +15,24 @@
 		</div>
 		<div class="divider" />
 		<div class="questions flex flex-col items-center justify-center">
-			<Question />
-			<Question />
-			<Question />
-			<Question />
-			<Question />
-			<Question />
-			<Question />
+			{#each data.questions.items as question}
+				<Question
+					id={question.id}
+					author={question.author}
+					title={question.title}
+					description={question.description}
+					tags={question.tags}
+					views={question.views}
+				/>
+			{/each}
 		</div>
 	</div>
 	<div class="btn-group flex items-center justify-center m-4 gap-1">
-		<button class="btn">1</button>
-		<button class="btn">2</button>
-		<button class="btn btn-disabled">...</button>
-		<button class="btn">19</button>
-		<button class="btn">20</button>
+		<a href="/questions?page=1" class="btn">1</a>
+		<a href="/questions?page=2" class="btn">2</a>
+		<a href="/questions?page=0" class="btn btn-disabled">...</a>
+		<a href="/questions?page=99" class="btn">99</a>
+		<a href="/questions?page=100" class="btn">100</a>
 	</div>
 </div>
 
