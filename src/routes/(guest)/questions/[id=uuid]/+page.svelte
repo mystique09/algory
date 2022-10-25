@@ -1,8 +1,17 @@
 <script lang="ts">
-	import type { PageData } from '.svelte-kit/types/src/routes/$types';
+	import Question from '$lib/components/question.svelte';
+
+	import type { PageData } from './$types';
 
 	export let data: PageData;
 </script>
 
-<h1>{data.title}</h1>
-<h1>{data.description}</h1>
+<a class="p-2 link link-primary" href="/questions">Go back</a>
+<Question
+	id={data.question.id}
+	author={data.question.author}
+	title={data.question.title}
+	description={data.question.description}
+	tags={data.question.tags}
+	views={data.question.views}
+/>
