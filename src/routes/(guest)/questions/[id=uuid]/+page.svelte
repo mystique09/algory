@@ -8,7 +8,9 @@
 <div class="container max-w-6xl">
 	<div class="wrap mt-24 mb-36">
 		<div class="flex items-center justify-end my-8">
-			<a class="btn btn-md btn-ghost bg-primary text-white" href="/questions/new">Ask question</a>
+			<a class="px-8 py-4 bg-primary shadow-md text-secondary text-sm" href="/questions/new"
+				>Ask question</a
+			>
 		</div>
 		<h2 class="text-xl">{data.question.title}</h2>
 		<div class="info">
@@ -27,7 +29,7 @@
 			<p>{data.question.description}</p>
 			<div class="tags mt-4">
 				{#each data.question.tags.split(', ') as tag}
-					<span class="text-xs p-1 bg-primary/20 text-primary mr-1">{tag}</span>
+					<a href={`/explore/${tag}`} class="text-xs p-1 bg-primary/20 text-primary mr-1">{tag}</a>
 				{/each}
 			</div>
 		</div>
@@ -39,7 +41,7 @@
 					explicabo voluptatem? Modi accusamus voluptate facere, ducimus dolor error possimus
 					corrupti eligendi dolore nemo. At ipsa iure vitae!
 				</p>
-				<a href="/users/krypto" class="text-accent text-xs">krypto</a>
+				<a href="/users/wdow5dggcwrxdff" class="text-accent text-xs">wdow5dggcwrxdff</a>
 			</div>
 			<div class="answer">
 				<div class="divider" />
@@ -48,7 +50,7 @@
 					explicabo voluptatem? Modi accusamus voluptate facere, ducimus dolor error possimus
 					corrupti eligendi dolore nemo. At ipsa iure vitae!
 				</p>
-				<a href="/users/krypto" class="text-accent text-xs">krypto</a>
+				<a href="/users/wdow5dggcwrxdff" class="text-accent text-xs">wdow5dggcwrxdff</a>
 			</div>
 			<div class="answer">
 				<div class="divider" />
@@ -57,7 +59,7 @@
 					explicabo voluptatem? Modi accusamus voluptate facere, ducimus dolor error possimus
 					corrupti eligendi dolore nemo. At ipsa iure vitae!
 				</p>
-				<a href="/users/krypto" class="text-accent text-xs">krypto</a>
+				<a href="/users/wdow5dggcwrxdff" class="text-accent text-xs">wdow5dggcwrxdff</a>
 			</div>
 		</div>
 		<div class="footer w-full mt-8">
