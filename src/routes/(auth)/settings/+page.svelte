@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from "$app/stores";
+	import { page } from '$app/stores';
 </script>
 
-<h1 class="font-bold text-primary text-2xl">This is your settings {$page.data.email}</h1>
+<h1>This is your settings {$page.data.email}</h1>
