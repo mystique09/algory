@@ -3,6 +3,16 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+	let upvotes = 0;
+	let downvotes = 0;
+
+	const upVoteHandler = () => {
+		upvotes++;
+	};
+
+	const downVoteHandler = () => {
+		downvotes++;
+	};
 </script>
 
 <div class="container max-w-6xl">
@@ -31,6 +41,28 @@
 				{#each data.question.tags.split(', ') as tag}
 					<a href={`/explore/${tag}`} class="text-xs p-1 bg-primary/20 text-primary mr-1">{tag}</a>
 				{/each}
+			</div>
+
+			<div class="buttons flex items-center mt-4">
+				{#if $page.data.session.user}
+					<button type="button" on:click={upVoteHandler} class="flex items-center gap-3"
+						><span>{upvotes}</span> <img src="/svgs/thumbs-up-solid.svg" alt="thumbs up icon" />
+					</button>
+					<div class="divider divider-horizontal" />
+					<button type="button" on:click={downVoteHandler} class="flex items-center gap-3"
+						><span>{downvotes}</span>
+						<img src="/svgs/thumbs-down-solid.svg" alt="thumbs down icon" />
+					</button>
+				{:else}
+					<a href="/sign-in" class="flex items-center gap-3"
+						><span>{upvotes}</span> <img src="/svgs/thumbs-up-solid.svg" alt="thumbs up icon" /></a
+					>
+					<div class="divider divider-horizontal" />
+					<a href="/sign-in" class="flex items-center gap-3"
+						><span>{downvotes}</span>
+						<img src="/svgs/thumbs-down-solid.svg" alt="thumbs down icon" />
+					</a>
+				{/if}
 			</div>
 		</div>
 		<div class="answers mt-8 pl-8 max-w-lg">
