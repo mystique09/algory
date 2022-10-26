@@ -9,8 +9,8 @@
 	if (browser) {
 		invalidateAll();
 	}
-	
-	$toast = {type: form?.success ? ToastType.SUCCESS : ToastType.ERROR, message: form?.message}
+
+	$toast = { type: form?.success ? ToastType.SUCCESS : ToastType.ERROR, message: form?.message };
 </script>
 
 <div class="main">
