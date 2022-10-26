@@ -1,5 +1,5 @@
 import { invalid, redirect, type Actions } from "@sveltejs/kit";
-import type { PageServerLoad } from '.svelte-kit/types/src/routes/(auth)/sign-in/$types';
+import type { PageServerLoad } from './$types';
 import { pbClient } from "$lib/db/pocketbase";
 
 export const load: PageServerLoad = async ({ parent }) => {
