@@ -2,4 +2,8 @@
 	import { page } from '$app/stores';
 </script>
 
-<h1>Welcome to your profile, {$page.data.email}!</h1>
+<svelte:head>
+	<title>{$page.data.email}'s Profile</title>'
+</svelte:head>
+
+<div class="container" />
