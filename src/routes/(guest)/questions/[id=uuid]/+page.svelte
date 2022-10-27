@@ -1,17 +1,26 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { voteBaseHandler } from '$lib/utils/upvote';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	let upvotes = 0;
-	let downvotes = 0;
+	const totalUpVotes = $page.data.question.upvotes.length;
+	const totalDownVotes = $page.data.question.downvotes.length;
 
-	const upVoteHandler = () => {
-		upvotes++;
+	const upVoteHandler = async () => {
+		const res = await voteBaseHandler('posts', 'post_upvotes', {
+			user: $page.data.session.user.id,
+			record_id: $page.data.question.id
+		});
+		console.log(res);
 	};
 
-	const downVoteHandler = () => {
-		downvotes++;
+	const downVoteHandler = async () => {
+		const res = await voteBaseHandler('posts', 'post_downvotes', {
+			user: $page.data.session.user.id,
+			record_id: $page.data.question.id
+		});
+		console.log(res);
 	};
 </script>
 
@@ -46,53 +55,41 @@
 			<div class="buttons flex items-center mt-4">
 				{#if $page.data.session.user}
 					<button type="button" on:click={upVoteHandler} class="flex items-center gap-3"
-						><span>{upvotes}</span> <img src="/svgs/thumbs-up-solid.svg" alt="thumbs up icon" />
+						><span>{totalUpVotes}</span>
+						<img src="/svgs/thumbs-up-solid.svg" alt="thumbs up icon" />
 					</button>
 					<div class="divider divider-horizontal" />
 					<button type="button" on:click={downVoteHandler} class="flex items-center gap-3"
-						><span>{downvotes}</span>
+						><span>{totalDownVotes}</span>
 						<img src="/svgs/thumbs-down-solid.svg" alt="thumbs down icon" />
 					</button>
 				{:else}
 					<a href="/sign-in" class="flex items-center gap-3"
-						><span>{upvotes}</span> <img src="/svgs/thumbs-up-solid.svg" alt="thumbs up icon" /></a
+						><span>{totalUpVotes}</span>
+						<img src="/svgs/thumbs-up-solid.svg" alt="thumbs up icon" /></a
 					>
 					<div class="divider divider-horizontal" />
 					<a href="/sign-in" class="flex items-center gap-3"
-						><span>{downvotes}</span>
+						><span>{totalDownVotes}</span>
 						<img src="/svgs/thumbs-down-solid.svg" alt="thumbs down icon" />
 					</a>
 				{/if}
 			</div>
 		</div>
 		<div class="answers mt-8 pl-8 max-w-lg">
-			<div class="answer">
-				<div class="divider" />
-				<p class="text-xs">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti et culpa tenetur
-					explicabo voluptatem? Modi accusamus voluptate facere, ducimus dolor error possimus
-					corrupti eligendi dolore nemo. At ipsa iure vitae!
-				</p>
-				<a href="/users/wdow5dggcwrxdff" class="text-accent text-xs">wdow5dggcwrxdff</a>
-			</div>
-			<div class="answer">
-				<div class="divider" />
-				<p class="text-xs">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti et culpa tenetur
-					explicabo voluptatem? Modi accusamus voluptate facere, ducimus dolor error possimus
-					corrupti eligendi dolore nemo. At ipsa iure vitae!
-				</p>
-				<a href="/users/wdow5dggcwrxdff" class="text-accent text-xs">wdow5dggcwrxdff</a>
-			</div>
-			<div class="answer">
-				<div class="divider" />
-				<p class="text-xs">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti et culpa tenetur
-					explicabo voluptatem? Modi accusamus voluptate facere, ducimus dolor error possimus
-					corrupti eligendi dolore nemo. At ipsa iure vitae!
-				</p>
-				<a href="/users/wdow5dggcwrxdff" class="text-accent text-xs">wdow5dggcwrxdff</a>
-			</div>
+			{#if !($page.data.question.comments.length > 0)}
+				<p>Be the first one to comment!</p>
+			{:else}
+				{#each $page.data.question['@expand'].comments as comment}
+					<div class="answer">
+						<div class="divider" />
+						<p class="text-xs">
+							{comment.content}
+						</p>
+						<a href="/users/wdow5dggcwrxdff" class="text-accent text-xs">{comment.user}</a>
+					</div>
+				{/each}
+			{/if}
 		</div>
 		<div class="footer w-full mt-8">
 			<form class="w-full">
