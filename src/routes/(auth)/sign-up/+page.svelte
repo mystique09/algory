@@ -63,7 +63,7 @@
 			</div>
 			<div class="flex items-center justify-center w-full mt-6">
 				<button
-					class="btn btn-lg bg-primary border-none btn-block btn-wide text-white"
+					class="btn btn-md bg-primary border-none btn-block btn-wide text-white"
 					type="submit">Sign up</button
 				>
 			</div>
