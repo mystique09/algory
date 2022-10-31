@@ -23,3 +23,7 @@ declare namespace App {
     // interface Error {}
     // interface Platform {}
 }
+
+interface ImportMetaEnv {
+    VITE_BACKEND_URL: string;
+}
