@@ -19,8 +19,8 @@
 </script>
 
 <div class="main fixed top-0 left-0 w-full">
-	<div class="navbar flex item-start justify-between p-2">
-		{#if !!$page.data.session.user}
+	<div class="navbar flex item-start justify-between p-2 max-w-4xl m-auto">
+		{#if !!$page.data.authenticated}
 			<button type="button" class="logo avatar btn btn-ghost" on:click={showNav}>
 				<div class="logo w-10 h-10 rounded-full ring ring-accent">
 					<img src="/images/algory.svg" alt="Algory logo" />
@@ -38,14 +38,9 @@
 					<span class="w-full h-1 w-1/4 bg-black" />
 				</div>
 			</div>
-			<div class="w-12 h-12">
-				<a href="/">
-					<img src="/images/algory.svg" alt="Algory logo" />
-				</a>
-			</div>
 		{/if}
 
-		{#if !$page.data.session.user}
+		{#if !$page.data.authenticated}
 			<ul class="flex items-center justify-end gap-4">
 				<li class="rounded-md py-1 px-6 bg-primary/10 border-none ring ring-primary">
 					<a class="text-xs" href="/sign-in">Sign in</a>
@@ -59,11 +54,11 @@
 	<div class="container" class:hidden={!isVisible}>
 		<div class="wrap">
 			<div class="heading">
-				<h1 class="text-2xl">{$page.data.session.user ? 'Account info' : 'Main menu'}</h1>
+				<h1 class="text-2xl">{$page.data.authenticated ? 'Account info' : 'Main menu'}</h1>
 				<button on:click={showNav} class="text-4xl">&times;</button>
 			</div>
 
-			{#if !!$page.data.session.user}
+			{#if !!$page.data.authenticated}
 				<div class="account">
 					<div class="avatar my-2">
 						<div
@@ -72,7 +67,7 @@
 							<img src="/images/algory.svg" alt="Algory logo" />
 						</div>
 					</div>
-					<h2 class="text-base font-normal">{$page.data.session?.user?.email}</h2>
+					<h2 class="text-base font-normal">{$page.data.user?.email}</h2>
 				</div>
 			{/if}
 			<div class="menu-container mt-8">
@@ -87,9 +82,9 @@
 						<a href="/users">Users</a>
 					</li>
 
-					{#if !!$page.data.session.user}
+					{#if !!$page.data.authenticated}
 						<li on:click={showNav} on:keydown={showNav}>
-							<a href={`/users/${$page.data.session.user.id}`}>Profile</a>
+							<a href={`/users/${$page.data.user?.id}`}>Profile</a>
 						</li>
 						<li on:click={showNav} on:keydown={showNav}>
 							<a href="/settings">Settings</a>
@@ -97,7 +92,7 @@
 					{/if}
 				</ul>
 
-				{#if !!$page.data.session.user}
+				{#if !!$page.data.authenticated}
 					<div class="divider" />
 					<button type="button" on:click={signOut} href="/logout">Logout</button>
 				{/if}
