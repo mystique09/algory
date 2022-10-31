@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 </script>
 
-{#if !!$page.data.session.user}
+{#if !!$page.data.authenticated}
 	<footer>
 		<div class="wrap">
 			<ul>
@@ -28,6 +28,7 @@
 
 	.wrap {
 		@apply p-8;
+		@apply max-w-4xl m-auto;
 	}
 
 	.wrap ul {
