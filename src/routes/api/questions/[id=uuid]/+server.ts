@@ -1,10 +1,9 @@
 import { pbClient } from "$lib/db/pocketbase";
-import type { RequestHandler } from ".svelte-kit/types/src/routes/(guest)/questions/[id=uuid]/$types";
+import type { RequestHandler } from "./$types";
 import { error, json } from "@sveltejs/kit";
 
 export const GET: RequestHandler = async ({ params }) => {
     const { id } = params;
-
     try {
         const question = await pbClient.records.getOne('posts', id, {
             sort: '-created',
