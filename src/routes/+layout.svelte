@@ -4,8 +4,6 @@
 	import '@fontsource/poppins';
 	import '../app.postcss';
 	import Toast from '$lib/components/toast.svelte';
-	// import EventSource from 'eventsource';
-	// global.EventSource = EventSource;
 </script>
 
 <Navbar />
