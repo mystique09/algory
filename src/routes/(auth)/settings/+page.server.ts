@@ -1,16 +1,15 @@
-import type { PageServerLoad } from ".svelte-kit/types/src/routes/(auth)/sign-in/$types";
+import type { PageServerLoad } from "./$types";
 import { redirect } from "@sveltejs/kit";
 
-export const load: PageServerLoad = async ({ parent }) => {
-  const { session } = await parent();
-  const { user } = session;
+export const load: PageServerLoad = async ({ parent, locals }) => {
+    const { authenticated } = await parent();
 
-  if (!session.user) {
-    throw redirect(307, "/sign-in");
-  }
+    if (!authenticated) {
+        throw redirect(307, "/sign-in");
+    }
 
-  return {
-    profile: user.profile,
-    email: user.email
-  }
+    return {
+        profile: locals.session.user.profile,
+        email: locals.session.user.email
+    }
 }
