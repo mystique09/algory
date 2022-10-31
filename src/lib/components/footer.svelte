@@ -2,13 +2,19 @@
 	import { page } from '$app/stores';
 </script>
 
-{#if !!$page.data.session.user}
+{#if !!$page.data.authenticated}
 	<footer>
 		<div class="wrap">
 			<ul>
-				<li><a href="/questions">Questions</a></li>
-				<li><a href="/explore">Explore</a></li>
-				<li><a href="/settings">Settings</a></li>
+				<li class="h-6 w-6">
+					<a href="/questions"><img src="/svgs/globe-solid.svg" alt="globe icon" /></a>
+				</li>
+				<li class="h-6 w-6">
+					<a href="/explore"> <img src="/svgs/magnifying-glass-solid.svg" alt="search icon" /></a>
+				</li>
+				<li class="h-6 w-6">
+					<a href="/settings"> <img src="/svgs/gear-solid.svg" alt="settings icon" /></a>
+				</li>
 			</ul>
 		</div>
 	</footer>
@@ -22,6 +28,7 @@
 
 	.wrap {
 		@apply p-8;
+		@apply max-w-4xl m-auto;
 	}
 
 	.wrap ul {

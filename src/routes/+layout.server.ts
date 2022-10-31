@@ -1,7 +1,8 @@
 import type { LayoutServerLoad } from ".svelte-kit/types/src/routes/$types";
 
 export const load: LayoutServerLoad = async ({ locals }) => {
-  return {
-    session: locals.session
-  };
+    return {
+        authenticated: !!locals.session.token,
+        user: locals.session.user
+    };
 }

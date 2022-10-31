@@ -9,8 +9,8 @@
 	if (browser) {
 		invalidateAll();
 	}
-	
-	$toast = {type: form?.success ? ToastType.SUCCESS : ToastType.ERROR, message: form?.message}
+
+	$toast = { type: form?.success ? ToastType.SUCCESS : ToastType.ERROR, message: form?.message };
 </script>
 
 <div class="main">
@@ -46,7 +46,7 @@
 			<a href="/forot-password" class="text-base text-accent">Forgot password?</a>
 			<div class="flex items-center justify-center w-full mt-6">
 				<button
-					class="btn btn-lg bg-primary border-none btn-wide btn-block text-white"
+					class="btn btn-md bg-primary border-none btn-wide btn-block text-white"
 					type="submit">Sign in</button
 				>
 			</div>
