@@ -1,5 +1,6 @@
 import type { PageServerLoad } from "./$types";
 import { redirect } from "@sveltejs/kit";
+import { parseNonPOJO } from "$lib/utils/helpers";
 
 export const load: PageServerLoad = async ({ parent, locals }) => {
     const { authenticated } = await parent();
@@ -9,7 +10,6 @@ export const load: PageServerLoad = async ({ parent, locals }) => {
     }
 
     return {
-        profile: locals.session.user.profile,
-        email: locals.session.user.email
+        user: parseNonPOJO(locals.session),
     }
 }

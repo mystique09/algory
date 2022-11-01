@@ -1,9 +1,9 @@
-import { pbClient } from "$lib/db/pocketbase";
 import type { PageServerLoad } from "./$types";
 import { invalid, redirect, type Actions } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({ parent }) => {
     const { authenticated } = await parent();
+    console.log(authenticated)
 
     if (authenticated) {
         throw redirect(307, "/questions");
@@ -13,7 +13,7 @@ export const load: PageServerLoad = async ({ parent }) => {
 }
 
 export const actions: Actions = {
-    async signup({ request }) {
+    async signup({ request, locals }) {
         const data = await request.formData();
         const username = data.get("username");
         const email = data.get("email");
@@ -37,15 +37,21 @@ export const actions: Actions = {
         }
 
         try {
-            const user = await pbClient.users.create({
+            await locals.pb.users.create({
                 email,
                 password,
                 passwordConfirm: confirmPassword
             });
 
-            await pbClient.users.requestVerification(user.email);
+            const { user } = await locals.pb.users.authViaEmail(email.toString(), password.toString());
+            const id = user.profile?.id!;
+            await locals.pb.records.update('profiles', id, {
+                name: username
+            });
 
-            return { success: true, message: "New user created." };
+            await locals.pb.users.requestVerification(user.email);
+
+            locals.pb.authStore.clear();
         } catch (e: any) {
             console.log(e)
             const { data } = e.data;
@@ -57,5 +63,6 @@ export const actions: Actions = {
 
             return invalid(e.status, { success: false, message: e.message });
         }
+        throw redirect(303, '/sign-in');
     }
 }

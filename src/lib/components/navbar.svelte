@@ -3,7 +3,6 @@
 
 	import { page } from '$app/stores';
 	let isVisible = false;
-
 	const showNav = () => (isVisible = !isVisible);
 
 	const signOut = async () => {
@@ -31,7 +30,7 @@
 				<div
 					on:click={showNav}
 					on:keydown={showNav}
-					class="burger-menu w-12 flex flex-col p-1 gap-2 mr-1"
+					class="burger-menu w-10 flex flex-col p-1 gap-2 mr-1"
 				>
 					<span class="w-full h-1 bg-black" />
 					<span class="w-full h-1 w-1/2 bg-black" />
@@ -67,7 +66,7 @@
 							<img src="/images/algory.svg" alt="Algory logo" />
 						</div>
 					</div>
-					<h2 class="text-base font-normal">{$page.data.user?.email}</h2>
+					<h2 class="text-base font-normal">{$page.data.user.profile.name}</h2>
 				</div>
 			{/if}
 			<div class="menu-container mt-8">
@@ -84,7 +83,7 @@
 
 					{#if !!$page.data.authenticated}
 						<li on:click={showNav} on:keydown={showNav}>
-							<a href={`/users/${$page.data.user?.id}`}>Profile</a>
+							<a href={`/users/${$page.data.user?.profile.id}`}>Profile</a>
 						</li>
 						<li on:click={showNav} on:keydown={showNav}>
 							<a href="/settings">Settings</a>

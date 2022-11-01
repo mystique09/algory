@@ -4,20 +4,8 @@
 
 declare namespace App {
     interface Locals {
-        session: {
-            token: string;
-            user: {
-                id: string;
-                email: string;
-                verified: boolean;
-                profile: {
-                    id: string;
-                    avatar?: string;
-                    name: string;
-                    userId: string;
-                }
-            },
-        },
+        pb: import("pocketbase").default,
+        session: import("pocketbase").User | import("pocketbase").Admin | null,
     }
     // interface PageData {}
     // interface Error {}

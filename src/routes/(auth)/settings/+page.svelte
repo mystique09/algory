@@ -1,5 +1,8 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
+	console.log(data);
 </script>
 
-<h1>This is your settings {$page.data.email}</h1>
+<h1>This is your settings {data.user.profile.name}</h1>

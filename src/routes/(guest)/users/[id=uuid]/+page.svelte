@@ -1,12 +1,11 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import Question from '$lib/components/question.svelte';
 
 	import type { PageData } from './$types';
 	export let data: PageData;
 
 	let isFollowing = data.authenticated
-		? data.followers.some((u: typeof data.followers) => u.user === $page.data.user.id)
+		? data.followers.some((u: typeof data.followers) => u.user === data.user?.id)
 		: false;
 	let followers = data.followers.length || 0;
 	let following = data.following.length || 0;
@@ -18,7 +17,7 @@
 </script>
 
 <svelte:head>
-	<title>{data.info.email}'s profile</title>
+	<title>{data.info.name}'s profile</title>
 	<meta
 		type="description"
 		content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora commodi inventore ipsum
@@ -37,12 +36,12 @@
 			<div class="info mt-2">
 				<div class="top flex items-center justify-between">
 					<div class="profile">
-						<h1 class="text-lg text-bold">{data.info.email}</h1>
+						<h1 class="text-lg text-bold">{data.info.name}</h1>
 						<p class="text-xs">{followers} Followers</p>
 						<p class="text-xs">{following} Following</p>
 					</div>
 					{#if data.authenticated}
-						{#if $page.data.user.id !== data.info.id}
+						{#if data.user.id !== data.info.userId}
 							<div class="profile-actions">
 								<button
 									type="button"
