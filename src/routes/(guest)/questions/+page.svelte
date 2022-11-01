@@ -16,17 +16,24 @@
 	<span class="text-lg text-primary">Page {numPages} of {data.questions.totalPages}</span>
 </div>
 <div class="divider" />
-<div class="questions flex flex-col items-center justify-center">
-	{#each data.questions.items as question}
-		<Question
-			id={question.id}
-			author={question.author}
-			title={question.title}
-			description={question.description}
-			tags={question.tags}
-			views={question.views}
-		/>
-	{/each}
+<div
+	class="questions flex flex-col items-center justify-center"
+	class:h-screen={!data.questions.totalItems}
+>
+	{#if data.questions.totalItems > 0}
+		{#each data.questions.items as question}
+			<Question
+				id={question.id}
+				author={question.author}
+				title={question.title}
+				description={question.description}
+				tags={question.tags}
+				views={question.views}
+			/>
+		{/each}
+	{:else}
+		<h1 class="text-4xl">No questions yet!</h1>
+	{/if}
 </div>
 
 <div class="btn-group flex items-center justify-center m-4 gap-1">
