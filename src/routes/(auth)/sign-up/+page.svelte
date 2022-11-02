@@ -9,7 +9,6 @@
 <div class="main">
 	<div class="wrap">
 		<form method="POST" action="?/signup">
-			<a href="/" class="text-lg text-accent">Back</a>
 			<div class="form-logo">
 				<img src="/images/algory.svg" alt="Algory logo" />
 			</div>
@@ -76,15 +75,13 @@
 
 <style lang="postcss">
 	.main {
-		@apply h-screen w-screen;
-		@apply flex flex-col items-center justify-center;
+		@apply flex flex-col items-center;
 		@apply bg-base-100;
 	}
 
 	.wrap {
 		@apply max-w-md;
 		@apply bg-white;
-		@apply h-auto;
 		@apply rounded-md;
 	}
 
