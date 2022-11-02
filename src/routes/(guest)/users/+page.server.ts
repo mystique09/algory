@@ -4,8 +4,9 @@ import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ locals }) => {
     try {
-        const profiles = await locals.pb.records.getFullList('profiles', 2048).then(parseNonPOJO);
-        console.log(profiles)
+        const profiles = await locals.pb.records.getFullList('profiles', 2048, {
+            expand: 'posts'
+        }).then(parseNonPOJO);
         return { profiles }
     } catch (e: any) {
         throw error(e.status, e.message);
