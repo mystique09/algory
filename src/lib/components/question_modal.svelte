@@ -1,15 +1,21 @@
+<script>
+	import WarningIcon from './warning_icon.svelte';
+</script>
+
 <input type="checkbox" id="question_modal" class="modal-toggle" />
 <div class="modal">
 	<div class="modal-box">
 		<form method="POST" action="/questions?/newQuestion">
-			<div class="modal-box w-full">
+			<div class="modal-box w-full h-full">
 				<h2 class="text-lg text-center">Ask a new question</h2>
-				<p class="text-xs text-center alert alert-warning text-gray-700">
-					Make sure to input all required fields!
+				<p class="text-2xs alert alert-warning">
+					<WarningIcon />
+					Warning: Make sure to input all required fields!
 				</p>
 				<div class="form-control">
 					<label for="title" class="label">
-						<span class="label-text">Title <span class="text-red-600 text-xs">*</span></span>
+						<span class="label-text text-xs">Title <span class="text-red-600 text-xs">*</span></span
+						>
 					</label>
 					<input
 						name="title"
@@ -22,20 +28,22 @@
 				</div>
 				<div class="form-control">
 					<label for="tags" class="label">
-						<span class="label-text">Tags <span class="text-red-600 text-xs">*</span></span>
+						<span class="label-text text-xs">Tags <span class="text-red-600 text-xs">*</span></span>
 					</label>
 					<input
 						name="tags"
 						id="tags"
 						type="text"
 						required
-						placeholder="go, rust, ...(4 tags max)"
+						placeholder="go, rust, python,...(4 tags max)"
 						class="input text-xs input-bordered"
 					/>
 				</div>
 				<div class="form-control">
 					<label for="description" class="label">
-						<span class="label-text">Description <span class="text-red-600 text-xs">*</span></span>
+						<span class="label-text text-xs"
+							>Description <span class="text-red-600 text-xs">*</span></span
+						>
 					</label>
 					<textarea
 						name="description"
@@ -48,11 +56,8 @@
 				</div>
 			</div>
 			<div class="modal-action flex items-center justify-evenly gap-3">
-				<label
-					for="question_modal"
-					class="btn px-8 md:px-12 btn-ghost ring-1 ring-red-600 text-xs text-red-600">Cancel</label
-				>
-				<button class="btn btn-ghost bg-primary text-white text-xs px-8 md:px-12">Submit</button>
+				<label for="question_modal" class="btn btn-outline btn-error px-8 md:px-12">Cancel</label>
+				<button class="btn btn-accent px-8 md:px-12">Submit</button>
 			</div>
 		</form>
 	</div>

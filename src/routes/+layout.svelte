@@ -6,9 +6,8 @@
 	import Toast from '$lib/components/toast.svelte';
 </script>
 
-<Navbar />
-<Toast />
-<div class="relative mt-20">
+<Navbar>
 	<slot />
-</div>
-<Footer />
+	<Toast />
+	<Footer />
+</Navbar>

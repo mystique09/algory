@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { toast, ToastType } from '$lib/stores/toast';
 
 	import type { PageData } from './$types';
 
@@ -20,11 +21,15 @@
 		totalUpvotes = totalUpvotes - 1 < 0 ? 0 : totalUpvotes - 1;
 		totalDownvotes++;
 	};
+
+	if (form?.failed) {
+		$toast = { type: ToastType.ERROR, message: form?.message };
+	}
 </script>
 
-<h2 class="text-xl">{data.question.title}</h2>
+<h2 class="text-2xl">{data.question.title}</h2>
 <div class="info">
-	<p class="text-xs">
+	<p class="text-2xs">
 		<span class="text-gray-500">Author </span><a
 			class="text-accent"
 			href={`/users/${data.question.author}`}>{data.question.author}</a
@@ -34,15 +39,17 @@
 		<span class="text-gray-500">Viewed </span>{data.question.views} times
 	</p>
 </div>
-<div class="divider" />
-<div class="content">
-	<p>{data.question.description}</p>
+<div class="content mt-4">
+	<p class="text-sm">{data.question.description}</p>
 	<div class="tags mt-4">
 		{#each data.question.tags as tag}
-			<a href={`/explore/${tag}`} class="text-xs p-1 bg-primary/20 text-primary mr-1">{tag}</a>
+			<div class="badge badge-secondary text-2xs ml-1">
+				<a href={`/explore/${tag}`}>{tag}</a>
+			</div>
 		{/each}
 	</div>
 
+	<div class="divider" />
 	<div class="buttons flex items-center mt-4 gap-6">
 		{#if $page.data.authenticated}
 			<button type="button" on:click={upvoteHandler} class="flex items-center gap-3">
@@ -95,14 +102,11 @@
 			disabled={!$page.data.authenticated}
 			id="answer"
 			name="answer"
-			class="textarea textarea-bordered h-48 w-full max-w-lg resize-none"
+			class="textarea textarea-bordered textarea-accent h-48 w-full max-w-lg resize-none"
 			placeholder={`${!$page.data.authenticated ? 'Sign in to answer' : 'Answer...'}`}
 		/>
-		{#if form?.failed}
-			<span class="badge badge-error text-xs">{form.message}</span>
-		{/if}
 		{#if $page.data.authenticated}
-			<button id="submit" class="px-12 py-3 bg-primary text-white">Submit answer</button>
+			<button id="submit" class="px-12 py-3 bg-accent text-accent-content">Submit answer</button>
 		{/if}
 	</form>
 </div>

@@ -1,5 +1,10 @@
 <script lang="ts">
 	import { toast, ToastType } from '$lib/stores/toast';
+	import ErrorIcon from './error_icon.svelte';
+	import InfoIcon from './info_icon.svelte';
+	import SuccessIcon from './success_icon.svelte';
+	import WarningIcon from './warning_icon.svelte';
+
 	setTimeout(() => {
 		$toast = { type: ToastType.NOTHING, message: null };
 	}, 2000);
@@ -18,7 +23,18 @@
 					: ''
 			}`}
 		>
-			<div><span>{$toast.message}</span></div>
+			<div>
+				{#if $toast.type === 1}
+					<ErrorIcon />
+				{:else if $toast.type === 2}
+					<SuccessIcon />
+				{:else if $toast.type === 3}
+					<InfoIcon />
+				{:else if $toast.type === 4}
+					<WarningIcon />
+				{/if}
+				<span class="text-xs">{$toast.message}</span>
+			</div>
 		</div>
 	</div>
 {/if}
