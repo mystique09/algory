@@ -7,11 +7,13 @@
 	export let views: number;
 </script>
 
-<main class="min-h-48 max-w-lg w-full shadow-md p-4">
+<main
+	class="min-h-48 max-w-lg w-full shadow-md py-2 px-3 rounded-sm my-2 bg-neutral text-neutral-content"
+>
 	<div class="status text-xs mb-2">
-		<span>0 votes</span>
+		<span class="text-gray-500">0 votes</span>
 		<span class="text-gray-500">0 comments</span>
-		<span class="text-gray-500">{views} views</span>
+		<span>{views} views</span>
 	</div>
 	<a class="text-primary" href={`/questions/${id}`}>{title}</a>
 	<p class="text-xs mt-1 h-1/4 overflow-hidden">{description}</p>
