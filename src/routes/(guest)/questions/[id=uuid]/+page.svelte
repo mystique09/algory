@@ -7,6 +7,10 @@
 	let totalUpvotes = $page.data.upvotes.length;
 	let totalDownvotes = $page.data.downvotes.length;
 
+	import type { ActionData } from './$types';
+
+	export let form: ActionData;
+
 	const upvoteHandler = async () => {
 		totalDownvotes = totalDownvotes - 1 < 0 ? 0 : totalDownvotes - 1;
 		totalUpvotes++;
@@ -34,7 +38,7 @@
 <div class="content">
 	<p>{data.question.description}</p>
 	<div class="tags mt-4">
-		{#each data.question.tags.split(', ') as tag}
+		{#each data.question.tags as tag}
 			<a href={`/explore/${tag}`} class="text-xs p-1 bg-primary/20 text-primary mr-1">{tag}</a>
 		{/each}
 	</div>
@@ -76,16 +80,16 @@
 		{#each $page.data.question['@expand'].comments as comment}
 			<div class="answer">
 				<div class="divider" />
+				<a href={`/users/${comment.user}`} class="text-accent text-xs">{comment.user}</a>
 				<p class="text-xs">
 					{comment.content}
 				</p>
-				<a href={`/users/${comment.user}`} class="text-accent text-xs">{comment.user}</a>
 			</div>
 		{/each}
 	{/if}
 </div>
 <div class="footer w-full mt-8">
-	<form class="w-full">
+	<form class="w-full" method="POST" action="?/newComment">
 		<label class="text-label" for="answer">Your answer</label>
 		<textarea
 			disabled={!$page.data.authenticated}
@@ -94,6 +98,12 @@
 			class="textarea textarea-bordered h-48 w-full max-w-lg resize-none"
 			placeholder={`${!$page.data.authenticated ? 'Sign in to answer' : 'Answer...'}`}
 		/>
+		{#if form?.failed}
+			<span class="badge badge-error text-xs">{form.message}</span>
+		{/if}
+		{#if $page.data.authenticated}
+			<button id="submit" class="px-12 py-3 bg-primary text-white">Submit answer</button>
+		{/if}
 	</form>
 </div>
 

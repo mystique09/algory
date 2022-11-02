@@ -17,7 +17,7 @@
 	<p class="text-xs mt-1 h-1/4 overflow-hidden">{description}</p>
 	<div class="info flex flex-wrap gap-2 items-center justify-between mt-4">
 		<div class="tags">
-			{#each tags.split(', ') as tag}
+			{#each tags as tag}
 				<a href={`/explore/${tag}`} class="text-xs p-1 bg-primary/20 text-primary m-1">{tag}</a>
 			{/each}
 		</div>

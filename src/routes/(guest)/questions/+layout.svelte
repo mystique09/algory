@@ -5,7 +5,7 @@
 
 <QuestionModal />
 <div class="container mb-24">
-	<div class="content px-4 max-w-3xl m-auto">
+	<div class="content px-4 max-w-xl w-full m-auto">
 		<div class="heading">
 			{#if $page.url.pathname === '/questions'}
 				<h1>All questions</h1>
