@@ -1,9 +1,13 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
-
 	import { page } from '$app/stores';
-	let isVisible = false;
-	const showNav = () => (isVisible = !isVisible);
+	import AlgoryIcon from './algory_icon.svelte';
+	import GearIcon from './gear_icon.svelte';
+	import HouseIcon from './house_icon.svelte';
+	import MagnifyingGlassIcon from './magnifying-glass-icon.svelte';
+	import SignoutIcon from './signout_icon.svelte';
+	import UsersIcon from './users_icon.svelte';
+	import UserIcon from './user_icon.svelte';
 
 	const signOut = async () => {
 		await fetch('/logout', {
@@ -13,170 +17,107 @@
 			}
 		});
 		await invalidateAll();
-		isVisible = false;
 	};
 </script>
 
-<div class="main fixed top-0 left-0 w-full">
-	<div class="navbar flex item-start justify-between p-2 max-w-4xl m-auto">
-		{#if !!$page.data.authenticated}
-			<div class="avatar">
-				<button type="button" class="logo avatar btn btn-ghost md:hidden" on:click={showNav}>
-					<div class="logo w-10 h-10 rounded-full ring ring-accent">
-						<img src="/images/algory.svg" alt="Algory logo" />
-					</div>
-					<span class="ml-2 hidden md:block">{$page.data.user.email}</span>
-				</button>
-				<button type="button" class="logo avatar btn btn-ghost hidden md:flex">
-					<div class="logo w-10 h-10 rounded-full ring ring-accent">
-						<img src="/images/algory.svg" alt="Algory logo" />
-					</div>
-					<span class="ml-2 hidden md:block">{$page.data.user.email}</span>
-				</button>
+<div class="drawer">
+	<input type="checkbox" id="algory-drawer" class="drawer-toggle" />
+	<div class="drawer-content flex flex-col">
+		<div class="navbar w-full bg-neutral text-neutral-content">
+			<div class="navbar-start">
+				<div class="btn btn-ghost">
+					<AlgoryIcon />
+				</div>
 			</div>
-			<div class="nav-links-lg">
-				<ul class="flex items-center gap-6 hidden hidden md:flex">
-					<li>
-						<a href="/users">Users</a>
-					</li>
-
-					{#if !!$page.data.authenticated}
-						<li>
-							<a href={`/users/${$page.data.user?.profile.id}`}>Profile</a>
-						</li>
+			<div class="navbar-end">
+				<ul class="menu menu-horizontal hidden md:menu md:menu-horizontal">
+					<li><a href="/questions"><HouseIcon color="#EDEDED" />Questions</a></li>
+					<li><a href="/users"><UsersIcon color="#EDEDED" />Users</a></li>
+					{#if $page.data.authenticated}
 						<div class="divider divider-horizontal" />
-						<button
-							class="px-8 py-2 bg-accent text-white rounded-sm text-sm"
-							type="button"
-							on:click={signOut}
-							href="/logout">Logout</button
-						>
-					{/if}
-				</ul>
-			</div>
-		{:else}
-			<div class="nav-links-md">
-				<div
-					on:click={showNav}
-					on:keydown={showNav}
-					class="burger-menu w-10 flex flex-col p-1 gap-2 mr-1 md:hidden"
-				>
-					<span class="w-full h-1 bg-black" />
-					<span class="w-full h-1 w-1/2 bg-black" />
-					<span class="w-full h-1 w-1/4 bg-black" />
-				</div>
-				<ul class="flex items-center gap-6 hidden md:flex">
-					<li>
-						<a href="/questions">Questions</a>
-					</li>
-					<li>
-						<a href="/explore">Explore</a>
-					</li>
-					<li>
-						<a href="/users">Users</a>
-					</li>
-
-					{#if !!$page.data.authenticated}
-						<li>
-							<a href={`/users/${$page.data.user?.profile.id}`}>Profile</a>
-						</li>
-						<li>
-							<a href="/settings">Settings</a>
-						</li>
-					{/if}
-				</ul>
-			</div>
-		{/if}
-
-		{#if !$page.data.authenticated}
-			<ul class="flex items-center justify-end gap-4">
-				<li class="rounded-md py-1 px-6 bg-primary/10 border-none ring ring-primary">
-					<a class="text-xs" href="/sign-in">Sign in</a>
-				</li>
-				<li class="rounded-md py-1 px-6 bg-primary text-white px-8">
-					<a class="text-xs" href="/sign-up">Sign up</a>
-				</li>
-			</ul>
-		{/if}
-	</div>
-
-	<div class="container lg:hidden" class:hidden={!isVisible}>
-		<div class="wrap">
-			<div class="heading">
-				<h1 class="text-2xl">{$page.data.authenticated ? 'Account info' : 'Main menu'}</h1>
-				<button on:click={showNav} class="text-4xl">&times;</button>
-			</div>
-
-			{#if !!$page.data.authenticated}
-				<div class="account">
-					<div class="avatar my-2">
-						<div
-							class="w-12 h-12 rounded-full avatar ring ring-primary ring-offset-base-100 ring-offset-2"
-						>
-							<img src="/images/algory.svg" alt="Algory logo" />
+						<div class="dropdown dropdown-bottom dropdown-end">
+							<button class="btn btn-ghost h-12 w-12 rounded-full ring ring-accent" tabindex="0">
+								<AlgoryIcon />
+							</button>
+							<button
+								tabindex="0"
+								class="dropdown-content menu menu-center p-2 shadow-lg rounded-box w-52 bg-base-100 text-neutral"
+							>
+								<ul>
+									<li><a href={`/users/${$page.data.user.profile.id}`}><UserIcon />Profile</a></li>
+									<li>
+										<a href="/settings"><GearIcon color="#2E2730" />Settings</a>
+									</li>
+								</ul>
+								<div class="divider" />
+								<button on:click={signOut} class="btn btn-ghost gap-2"
+									><SignoutIcon /> Signout</button
+								>
+							</button>
 						</div>
-					</div>
-					<h2 class="text-base font-normal">{$page.data.user.profile.name}</h2>
-				</div>
-			{/if}
-			<div class="menu-container mt-8">
-				<ul class="menu-links">
-					<li on:click={showNav} on:keydown={showNav}>
-						<a href="/questions">Questions</a>
-					</li>
-					<li on:click={showNav} on:keydown={showNav}>
-						<a href="/explore">Explore</a>
-					</li>
-					<li on:click={showNav} on:keydown={showNav}>
-						<a href="/users">Users</a>
-					</li>
-
-					{#if !!$page.data.authenticated}
-						<li on:click={showNav} on:keydown={showNav}>
-							<a href={`/users/${$page.data.user?.profile.id}`}>Profile</a>
+					{:else}
+						<li>
+							<a href="/sign-in" class="btn btn-outline btn-primary text-xs">Sign in</a>
 						</li>
-						<li on:click={showNav} on:keydown={showNav}>
-							<a href="/settings">Settings</a>
+						<li>
+							<a
+								href="/sign-up"
+								class="btn btn-secondary text-content-secondary rounded-box ml-2 text-xs">Sign up</a
+							>
 						</li>
 					{/if}
 				</ul>
 
-				{#if !!$page.data.authenticated}
-					<div class="divider" />
-					<button type="button" on:click={signOut} href="/logout">Logout</button>
-				{/if}
+				<div class="flex-none md:hidden">
+					<label for="algory-drawer" class="btn btn-square btn-ghost">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							class="inline-block w-6 h-6 stroke-current"
+							><path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M4 6h16M4 12h16M4 18h16"
+							/></svg
+						>
+					</label>
+				</div>
 			</div>
 		</div>
+		<slot />
+	</div>
+	<div class="drawer-side">
+		<label for="algory-drawer" class="drawer-overlay" />
+		<ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+			<div class="flex items-center justify-center mb-2">
+				<AlgoryIcon color="#2E2730" />
+			</div>
+
+			{#if $page.data.authenticated}
+				<li><a href="/questions"><HouseIcon />Questions</a></li>
+				<li><a href="/users"><UsersIcon />Users</a></li>
+				<li><a href="/explore"><MagnifyingGlassIcon />Explore</a></li>
+				<li>
+					<a href="/settings"><GearIcon color="#2E2730" />Settings</a>
+				</li>
+				<li><a href={`/users/${$page.data.user.profile.id}`}><UserIcon />Profile</a></li>
+				<div class="divider" />
+				<button on:click={signOut} class="btn btn-ghost gap-2"><SignoutIcon /> Signout</button>
+			{:else}
+				<li><a href="/questions"><HouseIcon />Questions</a></li>
+				<li><a href="/users"><UsersIcon />Users</a></li>
+				<li><a href="/explore"><MagnifyingGlassIcon />Explore</a></li>
+				<li>
+					<a href="/sign-in" class="btn btn-outline mb-2 btn-accent text-accent-content text-xs"
+						>Sign in</a
+					>
+				</li>
+				<li>
+					<a href="/sign-up" class="btn btn-secondary text-secondary-content text-xs">Sign up</a>
+				</li>
+			{/if}
+		</ul>
 	</div>
 </div>
-
-<style lang="postcss">
-	.main {
-		@apply bg-gray-100 shadow-md;
-		@apply px-4 z-10;
-	}
-
-	.container {
-		@apply absolute top-0 left-0 z-10;
-		@apply w-screen h-screen;
-		@apply bg-black/10;
-	}
-
-	.wrap {
-		@apply p-4 w-3/4 h-full;
-		@apply bg-white;
-	}
-
-	.wrap .heading {
-		@apply flex items-center justify-between;
-		@apply w-full mb-6;
-	}
-
-	.menu-links {
-		@apply flex flex-col gap-4;
-	}
-
-	.menu-links > li {
-		@apply font-bold text-xl;
-	}
-</style>
