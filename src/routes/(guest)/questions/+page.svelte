@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 
 	import Question from '$lib/components/question.svelte';
+	import { toast, ToastType } from '$lib/stores/toast';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -9,6 +10,12 @@
 	$: numPages = Number($page.url.searchParams.get('page')) || 1;
 	$: prevPage = numPages - 1 || numPages;
 	$: nextPage = numPages % data.questions.totalPages;
+	import type { ActionData } from './$types';
+	export let form: ActionData;
+
+	if (form?.failed) {
+		$toast = { type: ToastType.ERROR, message: form?.tags };
+	}
 </script>
 
 <div class="info mt-8 flex items-center justify-between">
