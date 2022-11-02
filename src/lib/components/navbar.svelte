@@ -13,29 +13,78 @@
 			}
 		});
 		await invalidateAll();
-		showNav();
+		isVisible = false;
 	};
 </script>
 
 <div class="main fixed top-0 left-0 w-full">
 	<div class="navbar flex item-start justify-between p-2 max-w-4xl m-auto">
 		{#if !!$page.data.authenticated}
-			<button type="button" class="logo avatar btn btn-ghost" on:click={showNav}>
-				<div class="logo w-10 h-10 rounded-full ring ring-accent">
-					<img src="/images/algory.svg" alt="Algory logo" />
-				</div>
-			</button>
+			<div class="avatar">
+				<button type="button" class="logo avatar btn btn-ghost md:hidden" on:click={showNav}>
+					<div class="logo w-10 h-10 rounded-full ring ring-accent">
+						<img src="/images/algory.svg" alt="Algory logo" />
+					</div>
+					<span class="ml-2 hidden md:block">{$page.data.user.email}</span>
+				</button>
+				<button type="button" class="logo avatar btn btn-ghost hidden md:flex">
+					<div class="logo w-10 h-10 rounded-full ring ring-accent">
+						<img src="/images/algory.svg" alt="Algory logo" />
+					</div>
+					<span class="ml-2 hidden md:block">{$page.data.user.email}</span>
+				</button>
+			</div>
+			<div class="nav-links-lg">
+				<ul class="flex items-center gap-6 hidden hidden md:flex">
+					<li>
+						<a href="/users">Users</a>
+					</li>
+
+					{#if !!$page.data.authenticated}
+						<li>
+							<a href={`/users/${$page.data.user?.profile.id}`}>Profile</a>
+						</li>
+						<div class="divider divider-horizontal" />
+						<button
+							class="px-8 py-2 bg-accent text-white rounded-sm text-sm"
+							type="button"
+							on:click={signOut}
+							href="/logout">Logout</button
+						>
+					{/if}
+				</ul>
+			</div>
 		{:else}
-			<div>
+			<div class="nav-links-md">
 				<div
 					on:click={showNav}
 					on:keydown={showNav}
-					class="burger-menu w-10 flex flex-col p-1 gap-2 mr-1"
+					class="burger-menu w-10 flex flex-col p-1 gap-2 mr-1 md:hidden"
 				>
 					<span class="w-full h-1 bg-black" />
 					<span class="w-full h-1 w-1/2 bg-black" />
 					<span class="w-full h-1 w-1/4 bg-black" />
 				</div>
+				<ul class="flex items-center gap-6 hidden md:flex">
+					<li>
+						<a href="/questions">Questions</a>
+					</li>
+					<li>
+						<a href="/explore">Explore</a>
+					</li>
+					<li>
+						<a href="/users">Users</a>
+					</li>
+
+					{#if !!$page.data.authenticated}
+						<li>
+							<a href={`/users/${$page.data.user?.profile.id}`}>Profile</a>
+						</li>
+						<li>
+							<a href="/settings">Settings</a>
+						</li>
+					{/if}
+				</ul>
 			</div>
 		{/if}
 
@@ -50,7 +99,8 @@
 			</ul>
 		{/if}
 	</div>
-	<div class="container" class:hidden={!isVisible}>
+
+	<div class="container lg:hidden" class:hidden={!isVisible}>
 		<div class="wrap">
 			<div class="heading">
 				<h1 class="text-2xl">{$page.data.authenticated ? 'Account info' : 'Main menu'}</h1>
