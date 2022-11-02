@@ -42,15 +42,14 @@
 					required
 				/>
 			</div>
-			<a href="/forot-password" class="text-base text-accent">Forgot password?</a>
+			<a href="/forot-password" class="text-xs text-secondary">Forgot password?</a>
 			<div class="flex items-center justify-center w-full mt-6">
-				<button
-					class="btn btn-md bg-primary border-none btn-wide btn-block text-white"
-					type="submit">Sign in</button
+				<button class="btn btn-md bg-accent border-none btn-wide btn-block text-white" type="submit"
+					>Sign in</button
 				>
 			</div>
 			<p class="text-center text-sm mt-4">
-				New to Algory? <a class="text-accent" href="/sign-up">Create an account</a>
+				New to Algory? <a class="text-secondary" href="/sign-up">Create an account</a>
 			</p>
 		</form>
 	</div>
@@ -77,7 +76,7 @@
 	}
 
 	form > .form-logo {
-		@apply w-full flex items-center justify-center;
+		@apply flex items-center justify-center;
 		@apply mb-12;
 	}
 
