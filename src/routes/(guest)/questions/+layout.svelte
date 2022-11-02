@@ -5,7 +5,7 @@
 
 <QuestionModal />
 <div class="container mb-24">
-	<div class="content px-4 max-w-xl w-full m-auto">
+	<div class="content px-4 max-w-xl w-full m-auto pt-4">
 		<div class="heading">
 			{#if $page.url.pathname === '/questions'}
 				<h1>All questions</h1>
@@ -14,11 +14,13 @@
 			{/if}
 
 			{#if $page.data.authenticated}
-				<label for="question_modal">Ask question</label>
+				<button class="px-6 py-3 bg-accent shadow-md text-accent-content text-xs">
+					<label for="question_modal"> Ask question </label>
+				</button>
 			{:else}
-				<label for="_">
+				<button class="px-6 py-3 bg-accent shadow-md text-accent-content text-xs">
 					<a href="/sign-in">Ask question</a>
-				</label>
+				</button>
 			{/if}
 		</div>
 		<slot />
@@ -32,9 +34,5 @@
 
 	.heading > h1 {
 		@apply font-normal text-xl;
-	}
-
-	.heading > label {
-		@apply px-6 py-3 bg-primary shadow-md text-secondary text-xs;
 	}
 </style>
