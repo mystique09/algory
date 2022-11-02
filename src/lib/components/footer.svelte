@@ -1,37 +1,20 @@
 <script>
 	import { page } from '$app/stores';
+	import GearIcon from './gear_icon.svelte';
+	import GlobeIcon from './globe_icon.svelte';
+	import MagnifyingGlassIcon from './magnifying-glass-icon.svelte';
 </script>
 
 {#if !!$page.data.authenticated}
-	<footer>
-		<div class="wrap">
-			<ul>
-				<li class="h-6 w-6">
-					<a href="/questions"><img src="/svgs/globe-solid.svg" alt="globe icon" /></a>
-				</li>
-				<li class="h-6 w-6">
-					<a href="/explore"> <img src="/svgs/magnifying-glass-solid.svg" alt="search icon" /></a>
-				</li>
-				<li class="h-6 w-6">
-					<a href="/settings"> <img src="/svgs/gear-solid.svg" alt="settings icon" /></a>
-				</li>
-			</ul>
-		</div>
-	</footer>
+	<div class="btm-nav md:hidden bg-base-120">
+		<a class="hover:active hover:scale-110 text-accent" href="/questions"><GlobeIcon /></a>
+		<a class="hover:active hover:scale-110 text-accent" href="/explore"><MagnifyingGlassIcon /></a>
+		<a class="hover:active hover:scale-110 text-accent" href="/settings"><GearIcon /></a>
+	</div>
 {/if}
 
 <style lang="postcss">
-	footer {
-		@apply fixed bottom-0 left-0 bg-white;
-		@apply w-full;
-	}
-
-	.wrap {
-		@apply p-8;
-		@apply max-w-4xl m-auto;
-	}
-
-	.wrap ul {
-		@apply flex items-center justify-between;
+	a {
+		@apply duration-200;
 	}
 </style>
