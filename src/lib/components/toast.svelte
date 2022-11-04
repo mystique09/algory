@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { toast, ToastType } from '$lib/stores/toast';
-	import ErrorIcon from './error_icon.svelte';
-	import InfoIcon from './info_icon.svelte';
-	import SuccessIcon from './success_icon.svelte';
-	import WarningIcon from './warning_icon.svelte';
+	import ErrorIcon from './icons/error_icon.svelte';
+	import InfoIcon from './icons/info_icon.svelte';
+	import SuccessIcon from './icons/success_icon.svelte';
+	import WarningIcon from './icons/warning_icon.svelte';
 
 	setTimeout(() => {
 		$toast = { type: ToastType.NOTHING, message: null };
@@ -17,10 +17,10 @@
 				$toast.type === 1
 					? 'alert-error'
 					: $toast.type === 2
-					? 'alert-success'
+					? 'alert-warning'
 					: $toast.type === 3
-					? 'alert-info'
-					: ''
+					? 'alert-success'
+					: 'alert-info'
 			}`}
 		>
 			<div>
