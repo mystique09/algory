@@ -1,8 +1,8 @@
 <script>
 	import { page } from '$app/stores';
-	import GearIcon from './gear_icon.svelte';
-	import GlobeIcon from './globe_icon.svelte';
-	import MagnifyingGlassIcon from './magnifying-glass-icon.svelte';
+	import GearIcon from './icons/gear_icon.svelte';
+	import GlobeIcon from './icons/globe_icon.svelte';
+	import MagnifyingGlassIcon from './icons/magnifying-glass-icon.svelte';
 </script>
 
 {#if !!$page.data.authenticated}
