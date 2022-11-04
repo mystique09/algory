@@ -3,10 +3,10 @@ import { error, invalid, redirect } from "@sveltejs/kit";
 import { parseNonPOJO } from "$lib/utils/helpers";
 
 export const load: PageServerLoad = async ({ url: { searchParams }, locals }) => {
-    const id = Number(searchParams.get('page')) || 1;
+    const page = Number(searchParams.get('page')) || 1;
 
     try {
-        const res = await locals.pb.records.getList('posts', id, 20, {
+        const res = await locals.pb.collection("questions").getList(page, 20, {
             sort: '-created'
         }).then(JSON.stringify).then(JSON.parse);
 
@@ -24,44 +24,56 @@ export const actions: Actions = {
         const session = parseNonPOJO(locals.session);
         const body = await request.formData();
         const title = body.get('title');
-        const description = body.get('description');
+        const content = body.get('content');
         const tags = body.get('tags');
-        const author = session.profile.id;
+        const author = session.id;
 
-        if (!title || !description || !author) {
+        if (!title || !content || !author) {
             throw error(400, 'Missing required fields!');
         }
 
         try {
             const data = {
                 title: title.toString(),
-                description: description,
+                content,
                 author,
-                tags: tags?.toString().split(', '),
+                tags: tags!,
                 views: 0,
-                comments: []
             };
 
-            const newQuestion = await locals.pb.records.create('posts', data).then(JSON.stringify).then(JSON.parse);
-            const allQuestions = await locals.pb.records.getFullList('posts', 2048, {
+            const newQuestion = await locals.pb.collection("questions").create(data).then(JSON.stringify).then(JSON.parse);
+            const allQuestions = await locals.pb.collection("questions").getFullList(2048, {
                 filter: `author = "${author}"`
             }).then(question => {
                 return question.map(question => question.id);
             });
-            const allAnswers = await locals.pb.records.getFullList('comments', 2048, {
-                filter: `user = "${author}"`
+            const allAnswers = await locals.pb.collection("answers").getFullList(2048, {
+                filter: `author = "${author}"`
             }).then(answers => {
                 return answers.map(answer => answer.id);
             });
 
-            await locals.pb.records.update('profiles', author, {
-                posts: allQuestions,
-                comments: allAnswers
+            await locals.pb.collection("users").update(author, {
+                questions: allQuestions,
+                answers: allAnswers
             });
 
             return { newQuestion }
         } catch (e: any) {
-            return invalid(e.status, { failed: true, tags: e.data.data.tags.message });
+            const { data } = e.data;
+            if (data.title) {
+                return invalid(e.status, { failed: true, tags: data.title.message })
+            }
+
+            if (data.content) {
+                return invalid(e.status, { failed: true, tags: data.content.message })
+            }
+
+            if (data.tags) {
+                return invalid(e.status, { failed: true, tags: data.tags.message })
+            }
+
+            return invalid(e.status, { message: e.message });
         }
     }
 }

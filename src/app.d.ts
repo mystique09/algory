@@ -5,7 +5,7 @@
 declare namespace App {
     interface Locals {
         pb: import("pocketbase").default,
-        session: import("pocketbase").User | import("pocketbase").Admin | null,
+        session: import("pocketbase").BaseModel | import("pocketbase").Admin | null,
     }
     // interface PageData {}
     // interface Error {}

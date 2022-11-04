@@ -1,5 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import QuestionAnswers from '$lib/components/question/question_answers.svelte';
+	import QuestionContent from '$lib/components/question/question_content.svelte';
+	import QuestionForm from '$lib/components/question/question_form.svelte';
+	import QuestionHeading from '$lib/components/question/question_heading.svelte';
 	import { toast, ToastType } from '$lib/stores/toast';
 
 	import type { PageData } from './$types';
@@ -12,118 +16,22 @@
 
 	export let form: ActionData;
 
-	const upvoteHandler = async () => {
-		totalDownvotes = totalDownvotes - 1 < 0 ? 0 : totalDownvotes - 1;
-		totalUpvotes++;
-	};
-
-	const downvteHandler = async () => {
-		totalUpvotes = totalUpvotes - 1 < 0 ? 0 : totalUpvotes - 1;
-		totalDownvotes++;
-	};
-
 	if (form?.failed) {
 		$toast = { type: ToastType.ERROR, message: form?.message };
 	}
 </script>
 
-<h2 class="text-2xl">{data.question.title}</h2>
-<div class="info">
-	<p class="text-2xs">
-		<span class="text-gray-500">Author </span><a
-			class="text-accent"
-			href={`/users/${data.question.author}`}>{data.question.author}</a
-		>
-	</p>
-	<p class="text-xs">
-		<span class="text-gray-500">Viewed </span>{data.question.views} times
-	</p>
-</div>
-<div class="content mt-4">
-	<p class="text-sm">{data.question.description}</p>
-	<div class="tags mt-4">
-		{#each data.question.tags as tag}
-			<div class="badge badge-secondary text-2xs ml-1">
-				<a href={`/explore/${tag}`}>{tag}</a>
-			</div>
-		{/each}
-	</div>
-
-	<div class="divider" />
-	<div class="buttons flex items-center mt-4 gap-6">
-		{#if $page.data.authenticated}
-			<button type="button" on:click={upvoteHandler} class="flex items-center gap-3">
-				<div class="upvote_icon">
-					<img src="/svgs/thumbs-up-solid.svg" alt="thumbs up icon" />
-				</div>
-				<span class="upvote_val">{totalUpvotes}</span>
-			</button>
-			<button type="button" on:click={downvteHandler} class="flex items-center gap-3"
-				><span class="downvote_val">{totalDownvotes}</span>
-				<div class="downvote_icon">
-					<img src="/svgs/thumbs-down-solid.svg" alt="thumbs down icon" />
-				</div>
-			</button>
-		{:else}
-			<a href="/sign-in" class="flex items-center gap-3">
-				<div class="upvote_icon">
-					<img src="/svgs/thumbs-up-solid.svg" alt="thumbs up icon" />
-				</div>
-				<span class="upvote_val">{totalUpvotes}</span></a
-			>
-			<a href="/sign-in" class="flex items-center gap-3">
-				<span class="downvote_val">{totalDownvotes}</span>
-				<div class="downvote_icon">
-					<img src="/svgs/thumbs-down-solid.svg" alt="thumbs down icon" />
-				</div>
-			</a>
-		{/if}
-	</div>
-</div>
-<div class="answers mt-8 pl-8 max-w-lg">
-	{#if !($page.data.question.comments.length > 0)}
-		<p>Be the first one to comment!</p>
-	{:else}
-		{#each $page.data.question['@expand'].comments as comment}
-			<div class="answer">
-				<div class="divider" />
-				<a href={`/users/${comment.user}`} class="text-accent text-xs">{comment.user}</a>
-				<p class="text-xs">
-					{comment.content}
-				</p>
-			</div>
-		{/each}
-	{/if}
-</div>
-<div class="footer w-full mt-8">
-	<form class="w-full" method="POST" action="?/newComment">
-		<label class="text-label" for="answer">Your answer</label>
-		<textarea
-			disabled={!$page.data.authenticated}
-			id="answer"
-			name="answer"
-			class="textarea textarea-bordered textarea-accent h-48 w-full max-w-lg resize-none"
-			placeholder={`${!$page.data.authenticated ? 'Sign in to answer' : 'Answer...'}`}
-		/>
-		{#if $page.data.authenticated}
-			<button id="submit" class="px-12 py-3 bg-accent text-accent-content">Submit answer</button>
-		{/if}
-	</form>
-</div>
-
-<style lang="postcss">
-	.info {
-		@apply mt-4;
-		@apply flex items-center justify-start gap-2;
-	}
-
-	.upvote_val,
-	.downvote_val {
-		@apply text-xs;
-	}
-
-	.upvote_icon,
-	.downvote_icon {
-		@apply w-5 h-5;
-	}
-</style>
+<QuestionHeading
+	title={data.question.title}
+	author={data.question.author}
+	views={data.question.views}
+/>
+<QuestionContent
+	authenticated={data.authenticated}
+	content={data.question.content}
+	tags={data.question.tags}
+	{totalUpvotes}
+	{totalDownvotes}
+/>
+<QuestionAnswers answers={$page.data.question.expand.answers || []} />
+<QuestionForm authenticated={data.authenticated} />

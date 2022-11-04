@@ -5,23 +5,20 @@ import type { PageServerLoad } from "./$types";
 export const load: PageServerLoad = async ({ params, locals }) => {
     const { id } = params;
     try {
-        const info = await locals.pb.records.getOne('profiles', id).then(parseNonPOJO);
-
-        const followers = await locals.pb.records.getFullList('followers', 2048, {
-            filter: `followed_user = "${info.userId}"`
+        const info = await locals.pb.collection("users").getOne(id, {
+            expand: 'questions'
         }).then(parseNonPOJO);
 
-        const following = await locals.pb.records.getFullList('followers', 2048, {
-            filter: `user = "${info.userId}"`
+        const followers = await locals.pb.collection("followers").getFullList(2048, {
+            filter: `user.id = "${id}"`
         }).then(parseNonPOJO);
 
-        const questions = await locals.pb.records.getFullList('posts', 2048, {
-            filter: `author = "${id}"`
+        const following = await locals.pb.collection("followers").getFullList(2048, {
+            filter: `follower.id = "${id}"`
         }).then(parseNonPOJO);
 
-        return { info, followers, following, questions }
+        return { info, questions: info.questions, followers, following }
     } catch (e: any) {
-        console.log(e)
         if (e.status === 404) {
             throw error(e.status, 'User not found!');
         }

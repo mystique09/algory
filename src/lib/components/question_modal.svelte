@@ -1,5 +1,12 @@
-<script>
-	import WarningIcon from './warning_icon.svelte';
+<script lang="ts">
+	import { languages } from '$lib/utils/helpers';
+	import { onDestroy } from 'svelte';
+	import WarningIcon from './icons/warning_icon.svelte';
+
+	$: langs = languages;
+	onDestroy(() => {
+		langs = [];
+	});
 </script>
 
 <input type="checkbox" id="question_modal" class="modal-toggle" />
@@ -8,10 +15,12 @@
 		<form method="POST" action="/questions?/newQuestion">
 			<div class="modal-box w-full h-full">
 				<h2 class="text-lg text-center">Ask a new question</h2>
-				<p class="text-2xs alert alert-warning">
+				<div class="alert alert-warning flex flex-row items-center">
 					<WarningIcon />
-					Warning: Make sure to input all required fields!
-				</p>
+					<div>
+						<span class="text-xs">Warning: Make sure to input all required fields!</span>
+					</div>
+				</div>
 				<div class="form-control">
 					<label for="title" class="label">
 						<span class="label-text text-xs">Title <span class="text-red-600 text-xs">*</span></span
@@ -22,35 +31,39 @@
 						id="title"
 						type="text"
 						required
-						placeholder="How to..."
+						placeholder="How to...(atleast 6 characters)"
 						class="input text-xs input-bordered"
 					/>
 				</div>
 				<div class="form-control">
 					<label for="tags" class="label">
-						<span class="label-text text-xs">Tags <span class="text-red-600 text-xs">*</span></span>
+						<span class="label-text text-xs">Tag <span class="text-red-600 text-xs">*</span></span>
 					</label>
-					<input
-						name="tags"
+					<select
 						id="tags"
-						type="text"
-						required
-						placeholder="go, rust, python,...(4 tags max)"
-						class="input text-xs input-bordered"
-					/>
+						name="tags"
+						max={4}
+						multiple
+						class="select select-bordered w-full max-w-xs"
+					>
+						<option disabled selected>Select tag</option>
+						{#each langs as programmingLanguage}
+							<option>{programmingLanguage}</option>
+						{/each}
+					</select>
 				</div>
 				<div class="form-control">
-					<label for="description" class="label">
+					<label for="content" class="label">
 						<span class="label-text text-xs"
-							>Description <span class="text-red-600 text-xs">*</span></span
+							>Content <span class="text-red-600 text-xs">*</span></span
 						>
 					</label>
 					<textarea
-						name="description"
-						id="description"
+						name="content"
+						id="content"
 						type="text"
 						required
-						placeholder="I encountered this problem..."
+						placeholder="I encountered this problem...(atleast 6 characters)"
 						class="textarea textarea-bordered text-xs h-18"
 					/>
 				</div>

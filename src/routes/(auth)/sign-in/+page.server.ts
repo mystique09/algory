@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ parent }) => {
 export const actions: Actions = {
     async login({ request, locals }) {
         const data = await request.formData();
-        const email = data.get('email');
+        const email = data.get('username-or-email');
         const password = data.get('password');
 
         if (!email || !password) {
@@ -22,7 +22,7 @@ export const actions: Actions = {
         }
 
         try {
-            const user = await locals.pb.users.authViaEmail(email as string, password as string);
+            await locals.pb.collection("users").authWithPassword(email.toString(), password.toString());
             return { success: true, message: "Logged in successfully" };
         } catch (e: any) {
             const { message } = e;

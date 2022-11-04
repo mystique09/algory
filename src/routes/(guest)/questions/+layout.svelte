@@ -4,32 +4,30 @@
 </script>
 
 <QuestionModal />
-<div class="container mb-24">
-	<div class="content px-4 max-w-xl w-full m-auto pt-4">
-		<div class="heading">
-			{#if $page.url.pathname === '/questions'}
-				<h1>All questions</h1>
-			{:else}
-				<h1>One question</h1>
-			{/if}
+<div class="px-3">
+	<div class="heading">
+		{#if $page.url.pathname === '/questions'}
+			<h1>All questions</h1>
+		{:else}
+			<h1>One question</h1>
+		{/if}
 
-			{#if $page.data.authenticated}
-				<button class="px-6 py-3 bg-accent shadow-md text-accent-content text-xs">
-					<label for="question_modal"> Ask question </label>
-				</button>
-			{:else}
-				<button class="px-6 py-3 bg-accent shadow-md text-accent-content text-xs">
-					<a href="/sign-in">Ask question</a>
-				</button>
-			{/if}
-		</div>
-		<slot />
+		{#if $page.data.authenticated}
+			<button class="px-6 py-3 bg-accent shadow-md text-accent-content text-xs">
+				<label for="question_modal"> Ask question </label>
+			</button>
+		{:else}
+			<button class="px-6 py-3 bg-accent shadow-md text-accent-content text-xs">
+				<a href="/sign-in">Ask question</a>
+			</button>
+		{/if}
 	</div>
+	<slot />
 </div>
 
 <style lang="postcss">
 	.heading {
-		@apply flex items-center justify-between mb-8;
+		@apply flex items-center justify-between;
 	}
 
 	.heading > h1 {

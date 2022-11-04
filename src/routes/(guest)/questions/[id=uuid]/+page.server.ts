@@ -2,18 +2,15 @@ import type { PageServerLoad } from "./$types";
 import { error, invalid } from "@sveltejs/kit";
 import type { Actions } from "./$types";
 import { parseNonPOJO } from "$lib/utils/helpers";
-import { ADMIN_USERNAME, ADMIN_PASSWORD, BACKEND_URL } from "$env/static/private";
-import PocketBase from 'pocketbase';
 
 export const load: PageServerLoad = async ({ params, locals }) => {
     try {
-        const question = await locals.pb.records.getOne('posts', params.id, {
+        const question = await locals.pb.collection("questions").getOne(params.id, {
             sort: '-created',
-            filter: `id = "${params.id}"`,
-            expand: 'comments,comments.upvotes,comments.downvotes'
+            expand: 'answers,answers.upvotes,answers.downvotes,upvotes,downvotes'
         }).then(parseNonPOJO);
 
-        return { question, upvotes: question.upvotes, downvotes: question.downvotes };
+        return { question, upvotes: question.upvotes, downvotes: question.downvotes, answers: question.answers };
     } catch (e: any) {
         throw error(e.status, e.message);
     }
@@ -21,50 +18,47 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 export const actions: Actions = {
     async newComment({ locals, request, params }) {
-        const body = await request.formData();
         const { id } = params;
+        const body = await request.formData();
         const answer = body.get('answer');
-        const session = parseNonPOJO(locals.session);
+        const { id: author } = locals.session!;
 
-        if (!answer) {
+        if (!answer || answer.toString().length < 6) {
             return invalid(400, { failed: true, message: "Too short, I know you have a better answer than that!" });
         }
 
         try {
             const data = {
-                post_id: id,
-                content: answer.toString(),
-                user: session.profile.id
+                question: id,
+                content: answer!,
+                author
             };
 
-            const newAnswer = await locals.pb.records.create('comments', data).then(parseNonPOJO);
-            const allAnswersOfPost = await locals.pb.records.getFullList('comments', 2048, {
-                filter: `post_id = "${id}"`
+            const newAnswer = await locals.pb.collection("answers").create(data).then(parseNonPOJO);
+            const allAnswersOfPost = await locals.pb.collection("answers").getFullList(2048, {
+                filter: `question = "${id}"`
             }).then(answers => {
                 return answers.map(answer => answer.id);
             });
 
-            const adminPb = new PocketBase(BACKEND_URL);
-            await adminPb.admins.authViaEmail(ADMIN_USERNAME, ADMIN_PASSWORD);
-            await adminPb.records.update('posts', id, {
-                comments: allAnswersOfPost,
+            await locals.pb.collection("questions").update(id, {
+                answers: allAnswersOfPost,
             });
-            adminPb.admins.client.authStore.clear();
 
-            const allQuestions = await locals.pb.records.getFullList('posts', 2048, {
-                filter: `author = "${session.profile.id}"`
+            const allQuestions = await locals.pb.collection("questions").getFullList(2048, {
+                filter: `author = "${author}"`
             }).then(question => {
                 return question.map(question => question.id);
             });
 
-            const allAnswersOfUser = await locals.pb.records.getFullList('comments', 2048, {
-                filter: `user = "${session.profile.id}"`
+            const allAnswersOfUser = await locals.pb.collection("answers").getFullList(2048, {
+                filter: `author = "${author}"`
             }).then(answers => {
                 return answers.map(answer => answer.id);
             });
-            await locals.pb.records.update('profiles', session.profile.id, {
-                comments: allAnswersOfUser,
-                posts: allQuestions
+            await locals.pb.collection("users").update(author, {
+                answers: allAnswersOfUser,
+                questions: allQuestions
             });
 
             return { newAnswer }

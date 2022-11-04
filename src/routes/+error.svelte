@@ -2,8 +2,10 @@
 	import { page } from '$app/stores';
 
 	const reloadHandler = async () => {
-		window.location.reload();
+		location.reload();
 	};
+
+	const goBack = () => history.back();
 </script>
 
 <div class="container">
@@ -14,12 +16,13 @@
 		</div>
 		<div class="bottom">
 			<div class="btns flex flex-col gap-2 w-full">
-				<a class="px-6 py-3 ring-2 ring-primary rounded-sm text-xs text-center" href="/questions"
-					>Go back</a
+				<button
+					class="px-6 py-3 ring-2 ring-secondary text-secondary rounded-sm text-xs text-center"
+					on:click={goBack}>Go back</button
 				>
 				<button
 					on:click={reloadHandler}
-					class="px-6 py-3 bg-primary text-white rounded-md text-xs"
+					class="px-6 py-3 bg-accent text-accent-content rounded-md text-xs"
 					type="button">Reload page</button
 				>
 			</div>

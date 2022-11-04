@@ -18,9 +18,9 @@
 	}
 </script>
 
-<div class="info mt-8 flex items-center justify-between">
+<div class="info flex items-center justify-between mt-2">
 	<p>{$page.data.questions.items.length} questions</p>
-	<span class="text-lg text-primary">Page {numPages} of {data.questions.totalPages}</span>
+	<span class="text-lg text-accent">Page {numPages} of {data.questions.totalPages}</span>
 </div>
 <div class="divider" />
 <div

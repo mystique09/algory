@@ -441,4 +441,4 @@ yang
 zephir
 zimpl`;
 
-console.log(languages.split('\n').join(', '))
+console.log(languages.split('\n').map(l => `"${l}"`).join(',\n'))

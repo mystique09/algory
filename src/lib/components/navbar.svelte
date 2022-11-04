@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
-	import AlgoryIcon from './algory_icon.svelte';
-	import GearIcon from './gear_icon.svelte';
-	import HouseIcon from './house_icon.svelte';
-	import MagnifyingGlassIcon from './magnifying-glass-icon.svelte';
-	import SignoutIcon from './signout_icon.svelte';
-	import UsersIcon from './users_icon.svelte';
-	import UserIcon from './user_icon.svelte';
+	import AlgoryIcon from './icons/algory_icon.svelte';
+	import GearIcon from './icons/gear_icon.svelte';
+	import HouseIcon from './icons/house_icon.svelte';
+	import MenuIcon from './icons/menu_icon.svelte';
+	import MagnifyingGlassIcon from './icons/magnifying-glass-icon.svelte';
+	import SignoutIcon from './icons/signout_icon.svelte';
+	import UsersIcon from './icons/users_icon.svelte';
+	import UserIcon from './icons/user_icon.svelte';
 
 	const signOut = async () => {
 		await fetch('/logout', {
@@ -44,7 +45,7 @@
 								class="dropdown-content menu menu-center p-2 shadow-lg rounded-box w-52 bg-base-100 text-neutral"
 							>
 								<ul>
-									<li><a href={`/users/${$page.data.user.profile.id}`}><UserIcon />Profile</a></li>
+									<li><a href={`/users/${$page.data.user.id}`}><UserIcon />Profile</a></li>
 									<li>
 										<a href="/settings"><GearIcon color="#2E2730" />Settings</a>
 									</li>
@@ -70,23 +71,14 @@
 
 				<div class="flex-none md:hidden">
 					<label for="algory-drawer" class="btn btn-square btn-ghost">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							class="inline-block w-6 h-6 stroke-current"
-							><path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M4 6h16M4 12h16M4 18h16"
-							/></svg
-						>
+						<MenuIcon />
 					</label>
 				</div>
 			</div>
 		</div>
-		<slot />
+		<div class="m-auto pt-8 pb-20 w-full max-w-2xl">
+			<slot />
+		</div>
 	</div>
 	<div class="drawer-side">
 		<label for="algory-drawer" class="drawer-overlay" />
@@ -102,7 +94,7 @@
 				<li>
 					<a href="/settings"><GearIcon color="#2E2730" />Settings</a>
 				</li>
-				<li><a href={`/users/${$page.data.user.profile.id}`}><UserIcon />Profile</a></li>
+				<li><a href={`/users/${$page.data.user.id}`}><UserIcon />Profile</a></li>
 				<div class="divider" />
 				<button on:click={signOut} class="btn btn-ghost gap-2"><SignoutIcon /> Signout</button>
 			{:else}
