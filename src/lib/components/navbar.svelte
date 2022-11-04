@@ -86,7 +86,9 @@
 				</div>
 			</div>
 		</div>
-		<slot />
+		<div class="m-auto pt-8 pb-20 w-full max-w-2xl">
+			<slot />
+		</div>
 	</div>
 	<div class="drawer-side">
 		<label for="algory-drawer" class="drawer-overlay" />
