@@ -16,6 +16,7 @@
 		"@fontsource/poppins": "^4.5.10",
 		"@playwright/test": "^1.27.1",
 		"@sveltejs/adapter-auto": "next",
+		"@sveltejs/adapter-cloudflare": "1.0.0-next.40",
 		"@sveltejs/kit": "next",
 		"@tailwindcss/typography": "^0.5.7",
 		"@types/eventsource": "^1.1.10",

@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import cloudflare from '@sveltejs/adapter-cloudflare';
 import preprocess from 'svelte-preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -9,7 +9,7 @@ const config = {
         postcss: true
     })],
     kit: {
-        adapter: adapter(),
+        adapter: cloudflare(),
         env: {
             dir: process.cwd(),
             publicPrefix: 'PUBLIC_'
