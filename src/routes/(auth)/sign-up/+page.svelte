@@ -10,7 +10,7 @@
 	<div class="form-logo">
 		<img src="/images/algory.svg" alt="Algory logo" />
 	</div>
-	<div class="input-group">
+	<div class:text-red-700={form?.credentials || form?.email} class="input-group">
 		<label for="username">Username</label>
 		<input
 			class="input input-normal input-bordered"
