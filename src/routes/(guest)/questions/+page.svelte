@@ -33,7 +33,7 @@
 				id={question.id}
 				author={question.author}
 				title={question.title}
-				description={question.description}
+				content={question.content}
 				tags={question.tags}
 				views={question.views}
 			/>

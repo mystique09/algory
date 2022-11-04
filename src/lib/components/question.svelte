@@ -2,7 +2,7 @@
 	export let id: string;
 	export let author: string;
 	export let title: string;
-	export let description: string;
+	export let content: string;
 	export let tags: string;
 	export let views: number;
 </script>
@@ -16,7 +16,7 @@
 		<span>{views} views</span>
 	</div>
 	<a class="text-primary" href={`/questions/${id}`}>{title}</a>
-	<p class="text-xs mt-1 h-1/4 overflow-hidden">{description}</p>
+	<p class="text-xs mt-1 whitespace-nowrap overflow-hidden text-ellipsis">{content}</p>
 	<div class="info flex flex-wrap gap-2 items-center justify-between mt-4">
 		<div class="tags">
 			{#each tags as tag}
