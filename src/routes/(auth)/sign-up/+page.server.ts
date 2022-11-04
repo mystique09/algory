@@ -3,7 +3,6 @@ import { invalid, redirect, type Actions } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({ parent }) => {
     const { authenticated } = await parent();
-    console.log(authenticated)
 
     if (authenticated) {
         throw redirect(307, "/questions");
@@ -37,28 +36,26 @@ export const actions: Actions = {
         }
 
         try {
-            await locals.pb.users.create({
+            await locals.pb.collection("users").create({
+                username,
                 email,
+                emailVisibility: true,
+                name: username,
                 password,
                 passwordConfirm: confirmPassword
             });
-
-            const { user } = await locals.pb.users.authViaEmail(email.toString(), password.toString());
-            const id = user.profile?.id!;
-            await locals.pb.records.update('profiles', id, {
-                name: username
-            });
-
-            await locals.pb.users.requestVerification(user.email);
+            await locals.pb.collection("users").requestVerification(email.toString());
 
             locals.pb.authStore.clear();
         } catch (e: any) {
-            console.log(e)
             const { data } = e.data;
 
             if (data.email) {
-                console.log(data, data.email);
                 return invalid(400, { email: true, message: data.email.message });
+            }
+
+            if (data.username) {
+                return invalid(400, { username: true, message: data.username.message });
             }
 
             return invalid(e.status, { success: false, message: e.message });
