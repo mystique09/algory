@@ -18,13 +18,13 @@
 		<img src="/images/algory.svg" alt="Algory logo" />
 	</div>
 	<div class="input-group">
-		<label for="email" class:text-red-700={form?.credentials}>Email</label>
+		<label for="username-or-email" class:text-red-700={form?.credentials}>Email</label>
 		<input
 			class="input input-normal input-bordered"
-			id="email"
-			name="email"
-			type="email"
-			placeholder="Email"
+			id="username-or-email"
+			name="username-or-email"
+			type="text"
+			placeholder="Username or email"
 			required
 		/>
 	</div>
