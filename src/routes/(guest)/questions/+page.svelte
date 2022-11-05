@@ -18,6 +18,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Algory, latest questions.</title>
+</svelte:head>
+
 <div class="info flex items-center justify-between mt-2">
 	<p>{$page.data.questions.items.length} questions</p>
 	<span class="text-lg text-accent">Page {numPages} of {data.questions.totalPages}</span>
