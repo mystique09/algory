@@ -17,7 +17,7 @@
 	export let form: ActionData;
 
 	if (form?.failed) {
-		$toast = { type: ToastType.ERROR, message: form?.message };
+		toast.addToast(ToastType.ERROR, form?.message);
 	}
 </script>
 
