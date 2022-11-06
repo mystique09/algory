@@ -7,10 +7,11 @@ export const load: PageServerLoad = async ({ params, locals }) => {
     try {
         const question = await locals.pb.collection("questions").getOne(params.id, {
             sort: '-created',
-            expand: 'answers,answers.upvotes,answers.downvotes,upvotes,downvotes'
         });
         const updatedQuestion = await locals.pb.collection("questions").update(params.id, {
             views: question.views + 1
+        }, {
+            expand: 'answers,answers.upvotes,answers.downvotes,upvotes,downvotes'
         }).then(parseNonPOJO);
 
         return { question: updatedQuestion, upvotes: updatedQuestion.upvotes, downvotes: updatedQuestion.downvotes, answers: updatedQuestion.answers };
@@ -59,6 +60,8 @@ export const actions: Actions = {
             }).then(answers => {
                 return answers.map(answer => answer.id);
             });
+
+            console.log(allAnswersOfUser, allQuestions);
             await locals.pb.collection("users").update(author, {
                 answers: allAnswersOfUser,
                 questions: allQuestions
