@@ -14,7 +14,7 @@
 	export let form: ActionData;
 
 	if (form?.failed) {
-		$toast = { type: ToastType.ERROR, message: form?.tags };
+		toast.addToast(ToastType.ERROR, form?.tags);
 	}
 </script>
 
@@ -40,6 +40,8 @@
 				content={question.content}
 				tags={question.tags}
 				views={question.views}
+				votes={question.upvotes.length + question.downvotes.length}
+				answers={question.answers.length}
 			/>
 		{/each}
 	{:else}
