@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-
 	import { isEditingMode } from '$lib/stores/profile';
-	import { toast, ToastType } from '$lib/stores/toast';
+	import { page } from '$app/stores';
+	import { toast } from '$lib/stores/toast';
 
 	export let name: string;
 	export let bio: string;
@@ -15,14 +14,14 @@
 	export let social: string;
 	export let followId: string;
 
-	$: recordId = followId;
 	$: totalFollowers = followers;
 	$: isFollowing = isFollowing;
+	$: fId = followId;
 
 	async function handleFollow() {
 		if (isFollowing) {
 			try {
-				const res = await fetch(`${$page.url.pathname}/?id=${recordId}`, {
+				const res = await fetch(`${$page.url.pathname}/?id=${fId}`, {
 					method: 'DELETE',
 					headers: {
 						'content-type': 'application/json'
@@ -33,9 +32,9 @@
 
 				totalFollowers--;
 				isFollowing = false;
-				toast.addToast(ToastType.INFO, resp.message);
+				toast.success(resp.message);
 			} catch (e: any) {
-				toast.addToast(ToastType.ERROR, 'Error occured while unfollowing user.');
+				toast.error('Error occured while unfollowing user.');
 			}
 		} else {
 			try {
@@ -50,10 +49,10 @@
 
 				totalFollowers++;
 				isFollowing = true;
-				recordId = resp.newFollower.id;
-				toast.addToast(ToastType.SUCCESS, resp.message);
+				fId = resp.newFollower.id;
+				toast.success(resp.message);
 			} catch (e: any) {
-				toast.addToast(ToastType.ERROR, 'Error occured while following user.');
+				toast.error('Error occured while unfollowing user.');
 			}
 		}
 	}
@@ -120,7 +119,13 @@
 		{#if authenticated}
 			{#if userId !== id}
 				<div class="profile-actions flex flex-row items-center justify-end">
-					<button on:click={handleFollow} class="btn btn-ghost h-12 flex items-center">
+					<!-- <form action={`${isFollowing ? '?/unfollowUser' : '?/followUser'}`} method="POST">
+						<input name="followId" id="followId" type="text" hidden value={followId} /> -->
+					<button
+						type="button"
+						on:click={handleFollow}
+						class="btn btn-ghost h-12 flex items-center"
+					>
 						<div class="w-5 h-5">
 							<img
 								src={`${isFollowing ? '/svgs/user-minus-solid.svg' : '/svgs/user-plus-solid.svg'}`}
@@ -129,6 +134,7 @@
 							/>
 						</div>
 					</button>
+					<!-- </form -->
 				</div>
 			{/if}
 		{/if}
