@@ -8,13 +8,16 @@ export const load: PageServerLoad = async ({ params, locals }) => {
         const question = await locals.pb.collection("questions").getOne(params.id, {
             sort: '-created',
             expand: 'answers,answers.upvotes,answers.downvotes,upvotes,downvotes'
+        });
+        const updatedQuestion = await locals.pb.collection("questions").update(params.id, {
+            views: question.views + 1
         }).then(parseNonPOJO);
 
-        return { question, upvotes: question.upvotes, downvotes: question.downvotes, answers: question.answers };
+        return { question: updatedQuestion, upvotes: updatedQuestion.upvotes, downvotes: updatedQuestion.downvotes, answers: updatedQuestion.answers };
     } catch (e: any) {
         throw error(e.status, e.message);
     }
-};
+}
 
 export const actions: Actions = {
     async newComment({ locals, request, params }) {
