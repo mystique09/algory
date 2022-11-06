@@ -17,12 +17,14 @@
 	<ProfileHeadingInfo
 		{followers}
 		{following}
+		followId={data.followId}
 		{isFollowing}
 		authenticated={data.authenticated}
 		name={data.info.name}
 		bio={data.info.bio}
 		userId={data.user?.id}
 		id={data.info.id}
+		social={data.info?.github}
 	/>
 </div>
 

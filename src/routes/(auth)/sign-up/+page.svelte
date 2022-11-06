@@ -2,8 +2,14 @@
 	import type { ActionData } from './$types';
 	export let form: ActionData;
 
-	import { toast, ToastType } from '$lib/stores/toast';
-	$toast = { type: form?.success ? ToastType.SUCCESS : ToastType.ERROR, message: form?.message };
+	import { toast } from '$lib/stores/toast';
+
+	if (form?.credentials || form?.username || form?.password || form?.email || form?.confirm) {
+		toast.error(form?.message, 5000);
+	}
+	if (form?.success) {
+		toast.success(form?.message);
+	}
 </script>
 
 <form method="POST" action="?/signup">

@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 
 	import Question from '$lib/components/question.svelte';
-	import { toast, ToastType } from '$lib/stores/toast';
+	import { toast } from '$lib/stores/toast';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -14,7 +14,7 @@
 	export let form: ActionData;
 
 	if (form?.failed) {
-		$toast = { type: ToastType.ERROR, message: form?.tags };
+		toast.error(form?.tags, 3500);
 	}
 </script>
 
@@ -40,6 +40,8 @@
 				content={question.content}
 				tags={question.tags}
 				views={question.views}
+				votes={question.upvotes.length + question.downvotes.length}
+				answers={question.answers.length}
 			/>
 		{/each}
 	{:else}

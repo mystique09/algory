@@ -4,7 +4,7 @@
 	import QuestionContent from '$lib/components/question/question_content.svelte';
 	import QuestionForm from '$lib/components/question/question_form.svelte';
 	import QuestionHeading from '$lib/components/question/question_heading.svelte';
-	import { toast, ToastType } from '$lib/stores/toast';
+	import { toast } from '$lib/stores/toast';
 
 	import type { PageData } from './$types';
 
@@ -17,7 +17,7 @@
 	export let form: ActionData;
 
 	if (form?.failed) {
-		$toast = { type: ToastType.ERROR, message: form?.message };
+		toast.error(form?.message, 5000);
 	}
 </script>
 

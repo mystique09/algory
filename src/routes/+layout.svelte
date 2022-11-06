@@ -12,8 +12,8 @@
 </script>
 
 <Loading />
+<Toast />
 <Navbar>
 	<slot />
-	<Toast />
 	<Footer />
 </Navbar>
