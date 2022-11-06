@@ -3,7 +3,17 @@
 	export let form: ActionData;
 
 	import { toast, ToastType } from '$lib/stores/toast';
-	$toast = { type: form?.success ? ToastType.SUCCESS : ToastType.ERROR, message: form?.message };
+
+	if (
+		form?.success ||
+		form?.credentials ||
+		form?.username ||
+		form?.password ||
+		form?.email ||
+		form?.confirm
+	) {
+		toast.addToast(form?.success ? ToastType.SUCCESS : ToastType.ERROR, form?.message);
+	}
 </script>
 
 <form method="POST" action="?/signup">
