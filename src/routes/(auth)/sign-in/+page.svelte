@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { invalidateAll } from '$app/navigation';
-	import { toast, ToastType } from '$lib/stores/toast';
+	import { toast } from '$lib/stores/toast';
 
 	import type { ActionData } from './$types';
 	export let form: ActionData;
@@ -10,8 +10,12 @@
 		invalidateAll();
 	}
 
-	if (form?.success || form?.failed) {
-		toast.addToast(form?.success ? ToastType.SUCCESS : ToastType.ERROR, form?.message);
+	if (form?.success) {
+		toast.success(form?.message);
+	}
+
+	if (form?.failed) {
+		toast.error(form?.message, 5000);
 	}
 </script>
 
