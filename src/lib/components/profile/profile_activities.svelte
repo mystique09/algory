@@ -5,9 +5,12 @@
 		id: string;
 		author: string;
 		title: string;
-		description: string;
+		content: string;
 		tags: string;
 		views: number;
+		upvotes: string[];
+		downvotes: string[];
+		answers: string[];
 	};
 
 	export let questions: Question[];
@@ -22,9 +25,11 @@
 				id={question.id}
 				author={question.author}
 				title={question.title}
-				description={question.description}
+				content={question.content}
 				tags={question.tags}
 				views={question.views}
+				votes={question.upvotes.length + question.downvotes.length}
+				answers={question.answers.length}
 			/>
 		{/each}
 	{/if}
