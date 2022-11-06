@@ -76,7 +76,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="m-auto pt-8 pb-20 w-full max-w-2xl">
+		<div class="md:m-auto pt-8 pb-20 w-full max-w-2xl">
 			<slot />
 		</div>
 	</div>
@@ -86,11 +86,10 @@
 			<div class="flex items-center justify-center mb-2">
 				<AlgoryIcon color="#2E2730" />
 			</div>
-
+			<li><a href="/questions"><HouseIcon />Questions</a></li>
+			<li><a href="/users"><UsersIcon />Users</a></li>
+			<li class="mb-2"><a href="/explore"><MagnifyingGlassIcon />Explore</a></li>
 			{#if $page.data.authenticated}
-				<li><a href="/questions"><HouseIcon />Questions</a></li>
-				<li><a href="/users"><UsersIcon />Users</a></li>
-				<li><a href="/explore"><MagnifyingGlassIcon />Explore</a></li>
 				<li>
 					<a href="/settings"><GearIcon color="#2E2730" />Settings</a>
 				</li>
@@ -98,9 +97,6 @@
 				<div class="divider" />
 				<button on:click={signOut} class="btn btn-ghost gap-2"><SignoutIcon /> Signout</button>
 			{:else}
-				<li><a href="/questions"><HouseIcon />Questions</a></li>
-				<li><a href="/users"><UsersIcon />Users</a></li>
-				<li><a href="/explore"><MagnifyingGlassIcon />Explore</a></li>
 				<li>
 					<a href="/sign-in" class="btn btn-outline mb-2 btn-accent text-accent-content text-xs"
 						>Sign in</a

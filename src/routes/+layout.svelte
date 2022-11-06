@@ -4,8 +4,14 @@
 	import '@fontsource/poppins';
 	import '../app.postcss';
 	import Toast from '$lib/components/toast.svelte';
+	import { loading } from '$lib/stores/loading';
+	import { navigating } from '$app/stores';
+	import Loading from '$lib/components/spinner/loading.svelte';
+
+	$: loading.setNavigate(!!$navigating);
 </script>
 
+<Loading />
 <Navbar>
 	<slot />
 	<Toast />
