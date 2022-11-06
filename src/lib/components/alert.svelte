@@ -1,12 +1,20 @@
 <script lang="ts">
-	import { ToastType, toast } from '$lib/stores/toast';
+	import { ToastType } from '$lib/stores/toast';
 	import ErrorIcon from './icons/error_icon.svelte';
 	import InfoIcon from './icons/info_icon.svelte';
 	import SuccessIcon from './icons/success_icon.svelte';
+	import { onDestroy } from 'svelte';
+	import { toast } from '$lib/stores/toast';
 	import WarningIcon from './icons/warning_icon.svelte';
 
 	export let type: ToastType;
 	export let message: string | undefined | null;
+
+	let unsub = toast.subscribe(() => {});
+
+	onDestroy(() => {
+		unsub();
+	});
 </script>
 
 <div
