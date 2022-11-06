@@ -1,14 +1,11 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-
 	import ProfileActivities from '$lib/components/profile/profile_activities.svelte';
 	import ProfileHeading from '$lib/components/profile/profile_heading.svelte';
 	import type { PageData } from './$types';
 	export let data: PageData;
 
-	const userId = $page.params.id;
 	let isFollowing = data.authenticated
-		? data.followers.some((u: typeof data.followers) => u.follower === userId)
+		? data.followers.some((u: typeof data.followers) => u.follower === data.user.id)
 		: false;
 	let followers = data.followers.length || 0;
 	let following = data.following.length || 0;
