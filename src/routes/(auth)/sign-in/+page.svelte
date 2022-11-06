@@ -10,7 +10,9 @@
 		invalidateAll();
 	}
 
-	$toast = { type: form?.success ? ToastType.SUCCESS : ToastType.ERROR, message: form?.message };
+	if (form?.success || form?.failed) {
+		toast.addToast(form?.success ? ToastType.SUCCESS : ToastType.ERROR, form?.message);
+	}
 </script>
 
 <form method="POST" action="?/login">
