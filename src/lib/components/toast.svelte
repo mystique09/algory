@@ -1,24 +1,14 @@
 <script lang="ts">
 	import { toast } from '$lib/stores/toast';
+	import { flip } from 'svelte/animate';
+	import { fly } from 'svelte/transition';
 	import Alert from './alert.svelte';
-
-	$: $toast.map((_, i) => {
-		setTimeout(() => {
-			$toast = $toast.filter((_, j) => i != j);
-		}, 2000);
-	});
 </script>
 
-<div class="absolute top-0 right-0 toast toast-top toast-end flex flex-col gap-2 h-auto">
-	{#if $toast.length > 0}
-		{#each $toast as alert}
+<div class="fixed bottom-10 z-30 toast toast-start toast-bottom h-auto">
+	{#each $toast as alert (alert.id)}
+		<div animate:flip transition:fly={{ y: 30 }}>
 			<Alert type={alert.type} message={alert.message} />
-		{/each}
-	{/if}
+		</div>
+	{/each}
 </div>
-
-<style lang="postcss">
-	.toast {
-		@apply absolute z-30;
-	}
-</style>
