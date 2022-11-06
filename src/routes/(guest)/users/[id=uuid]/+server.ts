@@ -27,7 +27,7 @@ export const DELETE: RequestHandler = async ({ locals, url }) => {
 
     try {
         await locals.pb.collection('followers').delete(recordId!);
-        return json({ success: true, message: 'You stopped following this user.' });
+        return json({ success: true, message: 'User removed from following.' });
     } catch (e: any) {
         if (e.status === 400 || e.status === 404) {
             return invalid(e.status, { failed: true, message: 'Failed to unfollow user!' });
