@@ -13,4 +13,14 @@ export type Toast = {
     message: string | undefined | null;
 }
 
-export const toast: Writable<Toast> = writable({ type: ToastType.NOTHING, message: "" });
+function newToast() {
+    const { set, update, subscribe }: Writable<Toast[]> = writable([]);
+
+    function addToast(type: ToastType, message: string | undefined) {
+        return update((toasts) => [...toasts, { type, message }]);
+    }
+
+    return { set, update, subscribe, addToast };
+}
+
+export const toast = newToast();
