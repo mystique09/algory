@@ -2,17 +2,13 @@
 	import type { ActionData } from './$types';
 	export let form: ActionData;
 
-	import { toast, ToastType } from '$lib/stores/toast';
+	import { toast } from '$lib/stores/toast';
 
-	if (
-		form?.success ||
-		form?.credentials ||
-		form?.username ||
-		form?.password ||
-		form?.email ||
-		form?.confirm
-	) {
-		toast.addToast(form?.success ? ToastType.SUCCESS : ToastType.ERROR, form?.message);
+	if (form?.credentials || form?.username || form?.password || form?.email || form?.confirm) {
+		toast.error(form?.message, 5000);
+	}
+	if (form?.success) {
+		toast.success(form?.message);
 	}
 </script>
 
