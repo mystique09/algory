@@ -5,14 +5,16 @@
 	export let content: string;
 	export let tags: string;
 	export let views: number;
+	export let votes: number;
+	export let answers: number;
 </script>
 
 <main
 	class="min-h-48 max-w-lg w-full shadow-md py-2 px-3 rounded-sm my-2 bg-neutral text-neutral-content"
 >
 	<div class="status text-xs mb-2">
-		<span class="text-gray-500">0 votes</span>
-		<span class="text-gray-500">0 comments</span>
+		<span class="text-gray-500">{votes} votes</span>
+		<span class="text-gray-500">{answers} answers</span>
 		<span>{views} views</span>
 	</div>
 	<a class="text-primary" href={`/questions/${id}`}>{title}</a>
