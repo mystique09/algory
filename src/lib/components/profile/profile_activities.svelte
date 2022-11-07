@@ -8,8 +8,7 @@
 		content: string;
 		tags: string;
 		views: number;
-		upvotes: string[];
-		downvotes: string[];
+		votes: string[];
 		answers: string[];
 	};
 
@@ -28,7 +27,7 @@
 				content={question.content}
 				tags={question.tags}
 				views={question.views}
-				votes={question.upvotes.length + question.downvotes.length}
+				votes={question.votes.length}
 				answers={question.answers.length}
 			/>
 		{/each}
