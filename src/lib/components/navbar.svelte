@@ -34,7 +34,7 @@
 				<ul class="menu menu-horizontal hidden md:menu md:menu-horizontal">
 					<li><a href="/questions"><HouseIcon color="#EDEDED" />Questions</a></li>
 					<li><a href="/users"><UsersIcon color="#EDEDED" />Users</a></li>
-					<li class="mb-2">
+					<li>
 						<a href="/explore"><MagnifyingGlassIcon className="fill-neutral-content" />Explore</a>
 					</li>
 				</ul>
