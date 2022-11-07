@@ -1,19 +1,26 @@
 <script lang="ts">
+	import ThumbsDownSolid from '../icons/thumbs-down-solid.svelte';
+
+	import ThumbsUpSolid from '../icons/thumbs-up-solid.svelte';
+
+	type Vote = {
+		id: string;
+		user: string;
+		question: string;
+		hash: string;
+		type: 'upvote' | 'downvote';
+	};
+
 	export let tags: string[];
 	export let content: string;
 	export let totalUpvotes: number;
 	export let totalDownvotes: number;
 	export let authenticated: boolean;
+	export let upvotes: Vote[];
+	export let downvotes: Vote[];
 
-	const upvoteHandler = async () => {
-		totalDownvotes = totalDownvotes - 1 < 0 ? 0 : totalDownvotes - 1;
-		totalUpvotes++;
-	};
-
-	const downvteHandler = async () => {
-		totalUpvotes = totalUpvotes - 1 < 0 ? 0 : totalUpvotes - 1;
-		totalDownvotes++;
-	};
+	let hasUpvote = upvotes.length > 0;
+	let hasDownvote = downvotes.length > 0;
 </script>
 
 <div class="content mt-4">
@@ -29,29 +36,40 @@
 	<div class="divider" />
 	<div class="buttons flex items-center mt-4 gap-6">
 		{#if authenticated}
-			<button type="button" on:click={upvoteHandler} class="flex items-center gap-3">
-				<div class="upvote_icon">
-					<img src="/svgs/thumbs-up-solid.svg" alt="thumbs up icon" />
-				</div>
-				<span class="upvote_val">{totalUpvotes}</span>
-			</button>
-			<button type="button" on:click={downvteHandler} class="flex items-center gap-3"
-				><span class="downvote_val">{totalDownvotes}</span>
-				<div class="downvote_icon">
-					<img src="/svgs/thumbs-down-solid.svg" alt="thumbs down icon" />
-				</div>
-			</button>
+			<form method="POST" action="?/upvoteQuestion">
+				<button
+					class:btn-neutral-content={hasUpvote}
+					class:text-neutral={hasUpvote}
+					class="btn btn-sm py-1 flex items-center gap-3"
+				>
+					<div class="upvote_icon">
+						<ThumbsUpSolid classNames={hasUpvote ? 'fill-secondary' : 'fill-neutral-content'} />
+					</div>
+					<span class="upvote_val text-neutral-content">{totalUpvotes}</span>
+				</button>
+			</form>
+			<form method="POST" action="?/downvoteQuestion">
+				<button
+					class:btn-neutral-content={hasDownvote}
+					class:text-neutral={hasDownvote}
+					class="btn btn-sm py-1 flex items-center gap-3"
+					><span class="downvote_val text-neutral-content">{totalDownvotes}</span>
+					<div class="downvote_icon">
+						<ThumbsDownSolid classNames={hasDownvote ? 'fill-secondary' : 'fill-neutral-content'} />
+					</div>
+				</button>
+			</form>
 		{:else}
 			<a href="/sign-in" class="flex items-center gap-3">
 				<div class="upvote_icon">
-					<img src="/svgs/thumbs-up-solid.svg" alt="thumbs up icon" />
+					<ThumbsUpSolid />
 				</div>
 				<span class="upvote_val">{totalUpvotes}</span></a
 			>
 			<a href="/sign-in" class="flex items-center gap-3">
 				<span class="downvote_val">{totalDownvotes}</span>
 				<div class="downvote_icon">
-					<img src="/svgs/thumbs-down-solid.svg" alt="thumbs down icon" />
+					<ThumbsDownSolid />
 				</div>
 			</a>
 		{/if}

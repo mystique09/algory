@@ -7,7 +7,8 @@ export const load: PageServerLoad = async ({ url: { searchParams }, locals }) =>
 
     try {
         const res = await locals.pb.collection("questions").getList(page, 20, {
-            sort: '-created'
+            sort: '-created',
+            expand: 'votes'
         }).then(JSON.stringify).then(JSON.parse);
 
         return { questions: res }

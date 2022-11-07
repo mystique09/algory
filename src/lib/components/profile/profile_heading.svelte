@@ -32,5 +32,7 @@
 	.heading {
 		@apply h-1/2;
 		@apply flex flex-col items-start;
+		@apply bg-neutral text-neutral-content;
+		@apply rounded-md;
 	}
 </style>

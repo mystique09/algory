@@ -1,12 +1,6 @@
 <script lang="ts">
-	import { languages } from '$lib/utils/helpers';
-	import { onDestroy } from 'svelte';
+	import { languages } from '$lib/stores/languages';
 	import WarningIcon from './icons/warning_icon.svelte';
-
-	$: langs = languages;
-	onDestroy(() => {
-		langs = [];
-	});
 </script>
 
 <input type="checkbox" id="question_modal" class="modal-toggle" />
@@ -47,7 +41,7 @@
 						class="select select-bordered w-full max-w-xs"
 					>
 						<option disabled selected>Select tag</option>
-						{#each langs as programmingLanguage}
+						{#each $languages as programmingLanguage}
 							<option>{programmingLanguage}</option>
 						{/each}
 					</select>

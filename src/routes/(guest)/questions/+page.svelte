@@ -22,9 +22,9 @@
 	<title>Algory, latest questions.</title>
 </svelte:head>
 
-<div class="info flex items-center justify-between mt-2">
+<div class="info flex items-center justify-between mt-4">
 	<p>{$page.data.questions.items.length} questions</p>
-	<span class="text-lg text-accent">Page {numPages} of {data.questions.totalPages}</span>
+	<span class="text-md">Page {numPages} of {data.questions.totalPages}</span>
 </div>
 <div class="divider" />
 <div
@@ -40,7 +40,7 @@
 				content={question.content}
 				tags={question.tags}
 				views={question.views}
-				votes={question.upvotes.length + question.downvotes.length}
+				votes={question.votes.length}
 				answers={question.answers.length}
 			/>
 		{/each}

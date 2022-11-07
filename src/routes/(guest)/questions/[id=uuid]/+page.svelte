@@ -9,15 +9,26 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	let totalUpvotes = $page.data.upvotes.length;
-	let totalDownvotes = $page.data.downvotes.length;
+	let totalUpvotes = data.upvotes.length;
+	let totalDownvotes = data.downvotes.length;
+
+	const hasUpvote = data.authenticated
+		? data.upvotes.filter((vote: { id: string; user: string; hash: string }) => {
+				return vote.user === data.user.id;
+		  })
+		: false;
+	const hasDownvote = data.authenticated
+		? data.downvotes.filter((vote: { id: string; user: string; hash: string }) => {
+				return vote.user === data.user.id;
+		  })
+		: false;
 
 	import type { ActionData } from './$types';
 
 	export let form: ActionData;
 
 	if (form?.failed) {
-		toast.error(form?.message, 5000);
+		toast.error(form?.message!, 5000);
 	}
 </script>
 
@@ -32,6 +43,8 @@
 	tags={data.question.tags}
 	{totalUpvotes}
 	{totalDownvotes}
+	upvotes={hasUpvote}
+	downvotes={hasDownvote}
 />
 <QuestionAnswers answers={$page.data.question.expand.answers || []} />
 <QuestionForm authenticated={data.authenticated} />

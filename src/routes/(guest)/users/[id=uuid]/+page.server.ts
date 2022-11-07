@@ -6,7 +6,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
     const { id } = params;
     try {
         const info = await locals.pb.collection("users").getOne(id, {
-            expand: 'questions'
+            expand: 'questions,questions.votes'
         }).then(parseNonPOJO);
 
         const followers = await locals.pb.collection("followers").getFullList(2048, {
@@ -16,6 +16,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
         const following = await locals.pb.collection("followers").getFullList(2048, {
             filter: `follower.id = "${id}"`
         }).then(parseNonPOJO);
+
         return { info, questions: info.questions, followers, following, followId: followers[0]?.id }
     } catch (e: any) {
         if (e.status === 404) {
