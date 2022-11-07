@@ -8,14 +8,19 @@ export const load: PageServerLoad = async ({ params, locals }) => {
         const question = await locals.pb.collection("questions").getOne(params.id, {
             sort: '-created',
         });
+
         const updatedQuestion = await locals.pb.collection("questions").update(params.id, {
             views: question.views + 1
         }, {
-            expand: 'answers,answers.upvotes,answers.downvotes,upvotes,downvotes'
+            expand: 'answers,answers.upvotes,answers.downvotes,votes'
         }).then(parseNonPOJO);
 
-        return { question: updatedQuestion, upvotes: updatedQuestion.upvotes, downvotes: updatedQuestion.downvotes, answers: updatedQuestion.answers };
+        const upvotes = updatedQuestion.expand?.votes?.filter((vote: { type: string }) => vote.type === "upvote") || [];
+        const downvotes = updatedQuestion.expand?.votes?.filter((vote: { type: string }) => vote.type === "downvote") || [];
+
+        return { question: updatedQuestion, upvotes, downvotes, answers: updatedQuestion.answers };
     } catch (e: any) {
+        console.log(e)
         throw error(e.status, e.message);
     }
 }
@@ -61,7 +66,6 @@ export const actions: Actions = {
                 return answers.map(answer => answer.id);
             });
 
-            console.log(allAnswersOfUser, allQuestions);
             await locals.pb.collection("users").update(author, {
                 answers: allAnswersOfUser,
                 questions: allQuestions
@@ -70,6 +74,93 @@ export const actions: Actions = {
             return { newAnswer }
         } catch (e: any) {
             throw error(e.status, e.message);
+        }
+    },
+    async upvoteQuestion({ locals, params }) {
+        const { id: question } = params;
+        const { id: user } = locals.session!;
+        const hash = `${question}${user}upvote`;
+        const voteId = user.substring(0, 7) + question.substring(0, 8);
+
+        const data = {
+            id: voteId,
+            user,
+            question,
+            hash,
+            type: "upvote"
+        };
+
+        try {
+            await locals.pb.collection('question_votes').create(data);
+
+            const allVotes = await locals.pb.collection('question_votes').getFullList(2048, {
+                filter: `question = "${question}"`
+            }).then(votes => votes.map((vote: { id: string }) => vote.id));
+
+            await locals.pb.collection('questions').update(question, {
+                votes: allVotes
+            });
+        } catch (e: any) {
+            const { hash } = e.data.data;
+            if (e.status === 400 || hash?.code === "validation_not_unique") {
+                await locals.pb.collection('question_votes').delete(voteId, {
+                    filter: `hash = "${hash}"`
+                });
+                await locals.pb.collection('question_votes').create(data);
+                const allVotes = await locals.pb.collection('question_votes').getFullList(2048, {
+                    filter: `question = "${question}"`
+                }).then(votes => votes.map((vote: { id: string }) => vote.id));
+                await locals.pb.collection('questions').update(question, {
+                    votes: allVotes
+                });
+                return { success: true, message: "Downvoted" };
+            }
+            return invalid(e.status, { failed: true, message: e.message });
+        }
+    },
+    async downvoteQuestion({ locals, params }) {
+        const { id: question } = params;
+        const { id: user } = locals.session!;
+        const hash = `${question}${user}downvote`;
+        const voteId = user.substring(0, 7) + question.substring(0, 8);
+        const data = {
+            id: voteId,
+            user,
+            question,
+            hash,
+            type: "downvote"
+        };
+
+        try {
+            await locals.pb.collection('question_votes').create(data);
+
+            const allVotes = await locals.pb.collection('question_votes').getFullList(2048, {
+                filter: `question = "${question}"`
+            }).then(votes => votes.map((vote: { id: string }) => vote.id));
+
+            await locals.pb.collection('questions').update(question, {
+                votes: allVotes
+            });
+        } catch (e: any) {
+            const { hash } = e.data.data;
+
+            if (e.status === 400) {
+                await locals.pb.collection('question_votes').delete(voteId, {
+                    filter: `hash = "${hash}"`
+                });
+
+                await locals.pb.collection('question_votes').create(data);
+
+                const allVotes = await locals.pb.collection('question_votes').getFullList(2048, {
+                    filter: `question = "${question}"`
+                }).then(votes => votes.map((vote: { id: string }) => vote.id));
+
+                await locals.pb.collection('questions').update(question, {
+                    votes: allVotes
+                });
+                return { success: true, message: "Downvoted" };
+            }
+            return invalid(e.status, { failed: true, message: e.message });
         }
     }
 }
