@@ -30,10 +30,17 @@
 					<AlgoryIcon />
 				</div>
 			</div>
-			<div class="navbar-end">
+			<div class="navbar-center">
 				<ul class="menu menu-horizontal hidden md:menu md:menu-horizontal">
 					<li><a href="/questions"><HouseIcon color="#EDEDED" />Questions</a></li>
 					<li><a href="/users"><UsersIcon color="#EDEDED" />Users</a></li>
+					<li class="mb-2">
+						<a href="/explore"><MagnifyingGlassIcon className="fill-neutral-content" />Explore</a>
+					</li>
+				</ul>
+			</div>
+			<div class="navbar-end px-3">
+				<ul class="menu menu-horizontal hidden md:menu md:menu-horizontal">
 					{#if $page.data.authenticated}
 						<div class="divider divider-horizontal" />
 						<div class="dropdown dropdown-bottom dropdown-end">
@@ -68,7 +75,6 @@
 						</li>
 					{/if}
 				</ul>
-
 				<div class="flex-none md:hidden">
 					<label for="algory-drawer" class="btn btn-square btn-ghost">
 						<MenuIcon />
@@ -76,7 +82,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="md:m-auto pt-8 pb-20 w-full max-w-2xl">
+		<div id="top" class="md:m-auto pt-8 pb-20 w-full max-w-2xl">
 			<slot />
 		</div>
 	</div>
