@@ -13,7 +13,9 @@
 		{/if}
 
 		{#if $page.data.authenticated}
-			<button class="px-6 py-3 bg-accent shadow-md text-accent-content text-xs">
+			<button
+				class="px-6 py-3 bg-primary content rounded-sm shadow-md text-primary-content text-xs"
+			>
 				<label for="question_modal"> Ask question </label>
 			</button>
 		{:else}
