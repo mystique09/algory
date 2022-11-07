@@ -6,7 +6,9 @@
 	export let authenticated: boolean;
 </script>
 
-<div class="user w-full h-48 bg-black/80 p-4 flex flex-row items-end justify-between relative">
+<div
+	class="user rounded-md overflow-hidden w-full h-48 bg-black/80 p-4 flex flex-row items-end justify-between relative"
+>
 	<div>
 		<div>
 			<img
