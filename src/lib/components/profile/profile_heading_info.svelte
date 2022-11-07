@@ -2,6 +2,8 @@
 	import { isEditingMode } from '$lib/stores/profile';
 	import { page } from '$app/stores';
 	import { toast } from '$lib/stores/toast';
+	import UserMinusSolid from '../icons/user-minus-solid.svelte';
+	import UserPlusSolid from '../icons/user-plus-solid.svelte';
 
 	export let name: string;
 	export let bio: string;
@@ -60,7 +62,7 @@
 	let bioValue: string = bio;
 </script>
 
-<div class="info w-full mt-2">
+<div class="info w-full mt-2 px-4">
 	<div class="top flex flex-col-reverse">
 		<div class="profile">
 			{#if $isEditingMode}
@@ -98,8 +100,13 @@
 							placeholder="Your bio..."
 						/>
 					</div>
-					<div class="w-full flex flex-row items-center justify-end">
-						<button class="btn btn-accent btn-sm">Save</button>
+					<div class="w-full flex flex-row items-center justify-end gap-2">
+						<button
+							type="button"
+							on:click={() => ($isEditingMode = !$isEditingMode)}
+							class="btn btn-sm btn-outline btn-error">Cancel</button
+						>
+						<button class="btn btn-accent btn-sm px-6">Save</button>
 					</div>
 				</form>
 			{:else}
@@ -127,11 +134,11 @@
 						class="btn btn-ghost h-12 flex items-center"
 					>
 						<div class="w-5 h-5">
-							<img
-								src={`${isFollowing ? '/svgs/user-minus-solid.svg' : '/svgs/user-plus-solid.svg'}`}
-								alt="follow icon"
-								class="w-full h-full"
-							/>
+							{#if isFollowing}
+								<UserMinusSolid className="fill-accent-content" />
+							{:else}
+								<UserPlusSolid className="fill-accent-content" />
+							{/if}
 						</div>
 					</button>
 					<!-- </form -->
