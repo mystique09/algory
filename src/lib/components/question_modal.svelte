@@ -7,7 +7,7 @@
 <div class="modal">
 	<div class="modal-box">
 		<form method="POST" action="/questions?/newQuestion">
-			<div class="modal-box w-full h-full">
+			<div class="w-full h-full">
 				<h2 class="text-lg text-center">Ask a new question</h2>
 				<div class="alert alert-warning flex flex-row items-center">
 					<WarningIcon />
