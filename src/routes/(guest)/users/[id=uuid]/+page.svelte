@@ -3,10 +3,10 @@
 	import ProfileHeading from '$lib/components/profile/profile_heading.svelte';
 	import type { PageData } from './$types';
 	import { toast } from '$lib/stores/toast';
+	import type { ActionData } from './$types';
 
 	export let data: PageData;
 
-	import type { ActionData } from './$types';
 	export let form: ActionData;
 
 	let isFollowing = data.authenticated
@@ -15,12 +15,12 @@
 	let followers = data.followers.length || 0;
 	let following = data.following.length || 0;
 
-	if (form?.success) {
+	if (form?.changeProfileSuccess || form?.followSuccess || form?.unfollowSuccess) {
 		toast.success(form?.message);
 	}
 
-	if (form?.failed) {
-		toast.error(form?.message!, 5000);
+	if (form?.changeProfileFailed || form?.followFailed || form?.unfollowFailed) {
+		toast.error(form?.message);
 	}
 </script>
 

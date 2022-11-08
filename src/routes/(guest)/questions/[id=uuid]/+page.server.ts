@@ -73,7 +73,7 @@ export const actions: Actions = {
 
             return { newAnswer }
         } catch (e: any) {
-            throw error(e.status, e.message);
+            return invalid(e.status, { answerFailed: true, message: 'Something went wrong.' });
         }
     },
     async upvoteQuestion({ locals, params }) {
@@ -113,9 +113,9 @@ export const actions: Actions = {
                 await locals.pb.collection('questions').update(question, {
                     votes: allVotes
                 });
-                return { success: true, message: "Downvoted" };
+                return { upvoteSuccess: true, message: "Downvoted" };
             }
-            return invalid(e.status, { failed: true, message: e.message });
+            return invalid(e.status, { upvoteFailed: true, message: e.message });
         }
     },
     async downvoteQuestion({ locals, params }) {
@@ -158,9 +158,9 @@ export const actions: Actions = {
                 await locals.pb.collection('questions').update(question, {
                     votes: allVotes
                 });
-                return { success: true, message: "Downvoted" };
+                return { downvoteSuccess: true, message: "Downvoted" };
             }
-            return invalid(e.status, { failed: true, message: e.message });
+            return invalid(e.status, { downvoteFailed: true, message: e.message });
         }
     }
 }

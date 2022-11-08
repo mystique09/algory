@@ -4,11 +4,16 @@
 
 	import { toast } from '$lib/stores/toast';
 
-	if (form?.credentials || form?.username || form?.password || form?.email || form?.confirm) {
+	if (
+		form?.credentialsInvalid ||
+		form?.emailInvalid ||
+		form?.usernameInvalid ||
+		form?.passwordInvalid ||
+		form?.message ||
+		form?.confirmPasswordInvalid ||
+		form?.signupFailed
+	) {
 		toast.error(form?.message, 5000);
-	}
-	if (form?.success) {
-		toast.success(form?.message);
 	}
 </script>
 
@@ -16,7 +21,7 @@
 	<div class="form-logo">
 		<img src="/images/algory.svg" alt="Algory logo" />
 	</div>
-	<div class:text-red-700={form?.credentials || form?.email} class="input-group">
+	<div class:text-red-700={form?.credentialsInvalid || form?.usernameInvalid} class="input-group">
 		<label for="username">Username</label>
 		<input
 			class="input input-normal input-bordered"
@@ -28,7 +33,9 @@
 		/>
 	</div>
 	<div class="input-group">
-		<label class:text-red-700={form?.credentials || form?.email} for="email">Email</label>
+		<label class:text-red-700={form?.credentialsInvalid || form?.emailInvalid} for="email"
+			>Email</label
+		>
 		<input
 			class="input input-normal input-bordered"
 			id="email"
@@ -39,7 +46,9 @@
 		/>
 	</div>
 	<div class="input-group">
-		<label for="password" class:text-red-700={form?.password || form?.credentials}>Password</label>
+		<label for="password" class:text-red-700={form?.passwordInvalid || form?.credentialsInvalid}
+			>Password</label
+		>
 		<input
 			class="input input-normal input-bordered"
 			id="password"
@@ -50,7 +59,9 @@
 		/>
 	</div>
 	<div class="input-group">
-		<label for="confirm-password" class:text-red-700={form?.confirm || form?.credentials}
+		<label
+			for="confirm-password"
+			class:text-red-700={form?.confirmPasswordInvalid || form?.credentialsInvalid}
 			>Confirm password</label
 		>
 		<input

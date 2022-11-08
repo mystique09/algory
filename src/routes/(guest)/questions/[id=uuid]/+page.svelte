@@ -27,7 +27,7 @@
 
 	export let form: ActionData;
 
-	if (form?.failed) {
+	if (form?.upvoteFailed || form?.downvoteFailed) {
 		toast.error(form?.message!, 5000);
 	}
 </script>

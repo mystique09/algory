@@ -1,4 +1,4 @@
-import { derived, writable, type Readable, type Writable } from 'svelte/store';
+import { writable, type Writable } from 'svelte/store';
 
 export enum ToastType {
     NOTHING,
@@ -15,36 +15,28 @@ export type Toast = {
     timeout: number;
 }
 
-const TIMEOUT = 2000;
+const TIMEOUT = 3000;
 
 function newToast() {
-    const _toast: Writable<Toast[]> = writable([]);
+    const { set, update, subscribe }: Writable<Toast[]> = writable([]);
 
     function addToast(message: string, type: ToastType = ToastType.INFO, timeout: number) {
-        _toast.update(state => {
+        update(state => {
             return [...state, { id: randomId(), type, message, timeout }];
+        });
+        setTimeout(removeToast, timeout)
+    }
+
+    function removeToast() {
+        update(state => {
+            return [...state.slice(0, state.length - 1)]
         });
     }
 
-    const notifications: Readable<Toast[]> = derived(_toast, ($_toast: Toast[], set) => {
-        set($_toast);
-        if ($_toast.length > 0) {
-            const timer = setTimeout(() => {
-                _toast.update(state => {
-                    state.shift()
-                    return state
-                })
-            }, $_toast[0].timeout)
-            return () => {
-                clearTimeout(timer)
-            }
-        }
-    });
-
-    const { subscribe } = notifications;
-
     return {
+        set,
         subscribe,
+        update,
         addToast,
         warning: (message: string, timeout: number = TIMEOUT) => addToast(message, ToastType.WARNING, timeout),
         error: (message: string, timeout: number = TIMEOUT) => addToast(message, ToastType.ERROR, timeout),
