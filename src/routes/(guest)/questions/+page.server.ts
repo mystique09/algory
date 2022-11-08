@@ -59,22 +59,22 @@ export const actions: Actions = {
                 answers: allAnswers
             });
 
-            return { newQuestion }
+            return { creationSuccess: true, newQuestion }
         } catch (e: any) {
             const { data } = e.data;
             if (data.title) {
-                return invalid(e.status, { failed: true, tags: data.title.message })
+                return invalid(e.status, { titleInvalid: true, tags: data.title.message })
             }
 
             if (data.content) {
-                return invalid(e.status, { failed: true, tags: data.content.message })
+                return invalid(e.status, { contentInvalid: true, tags: data.content.message })
             }
 
             if (data.tags) {
-                return invalid(e.status, { failed: true, tags: data.tags.message })
+                return invalid(e.status, { tagsInvalid: true, tags: data.tags.message })
             }
 
-            return invalid(e.status, { message: e.message });
+            return invalid(e.status, { creationError: true, message: e.message });
         }
     }
 }
