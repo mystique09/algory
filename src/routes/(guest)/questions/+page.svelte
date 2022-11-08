@@ -13,8 +13,12 @@
 	import type { ActionData } from './$types';
 	export let form: ActionData;
 
-	if (form?.failed) {
+	if (form?.titleInvalid || form?.creationError || form?.contentInvalid || form?.tagsInvalid) {
 		toast.error(form?.tags, 3500);
+	}
+
+	if (form?.creationSuccess) {
+		toast.success('New question created.');
 	}
 </script>
 
