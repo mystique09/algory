@@ -10,11 +10,11 @@
 		invalidateAll();
 	}
 
-	if (form?.success) {
+	if (form?.signinSuccess) {
 		toast.success(form?.message);
 	}
 
-	if (form?.failed) {
+	if (form?.signinFailed || form?.fieldsInvalid) {
 		toast.error(form?.message, 5000);
 	}
 </script>
@@ -24,7 +24,7 @@
 		<img src="/images/algory.svg" alt="Algory logo" />
 	</div>
 	<div class="input-group">
-		<label for="username-or-email" class:text-red-700={form?.credentials}>Email</label>
+		<label for="username-or-email" class:text-red-700={form?.fieldsInvalid}>Email</label>
 		<input
 			class="input input-normal input-bordered"
 			id="username-or-email"
@@ -35,7 +35,9 @@
 		/>
 	</div>
 	<div class="input-group">
-		<label for="password" class:text-red-700={form?.failed || form?.credentials}>Password</label>
+		<label for="password" class:text-red-700={form?.signinFailed || form?.fieldsInvalid}
+			>Password</label
+		>
 		<input
 			class="input input-normal input-bordered"
 			id="password"
