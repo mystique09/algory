@@ -49,16 +49,18 @@
 							</button>
 							<button
 								tabindex="0"
-								class="dropdown-content menu menu-center p-2 shadow-lg rounded-box w-52 bg-base-100 text-neutral"
+								class="w-full dropdown-content menu menu-center p-2 shadow-lg rounded-box w-auto bg-base-100 text-neutral"
 							>
 								<ul>
-									<li><a href={`/users/${$page.data.user.id}`}><UserIcon />Profile</a></li>
+									<li>
+										<a href={`/users/${$page.data.user.id}`}><UserIcon />Profile</a>
+									</li>
 									<li>
 										<a href="/settings"><GearIcon color="#2E2730" />Settings</a>
 									</li>
 								</ul>
 								<div class="divider" />
-								<button on:click={signOut} class="btn btn-ghost gap-2"
+								<button on:click={signOut} class="btn btn-ghost gap-2 normal-case"
 									><SignoutIcon /> Signout</button
 								>
 							</button>
@@ -101,7 +103,9 @@
 				</li>
 				<li><a href={`/users/${$page.data.user.id}`}><UserIcon />Profile</a></li>
 				<div class="divider" />
-				<button on:click={signOut} class="btn btn-ghost gap-2"><SignoutIcon /> Signout</button>
+				<button on:click={signOut} class="btn btn-ghost gap-2 normal-case"
+					><SignoutIcon /> Signout</button
+				>
 			{:else}
 				<li>
 					<a href="/sign-in" class="btn btn-outline mb-2 btn-accent text-accent-content text-xs"
