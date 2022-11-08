@@ -18,15 +18,15 @@ export const actions: Actions = {
         const password = data.get('password');
 
         if (!email || !password) {
-            return invalid(400, { credentials: true, message: "Missing required fields" });
+            return invalid(400, { fieldsInvalid: true, message: "Missing required fields" });
         }
 
         try {
             await locals.pb.collection("users").authWithPassword(email.toString(), password.toString());
-            return { success: true, message: "Logged in successfully" };
+            return { signinSuccess: true, message: "Logged in successfully" };
         } catch (e: any) {
             const { message } = e;
-            return invalid(e.status, { failed: true, message });
+            return invalid(e.status, { signinFailed: true, message });
         }
     }
 };
