@@ -82,7 +82,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="top" class="md:m-auto pt-8 pb-20 w-full max-w-2xl">
+		<div id="top" class="md:m-auto pt-2 pb-20 w-full max-w-2xl">
 			<slot />
 		</div>
 	</div>
