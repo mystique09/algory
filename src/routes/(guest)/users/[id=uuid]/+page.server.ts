@@ -43,11 +43,11 @@ export const actions: Actions = {
 
             await locals.pb.collection('users').update(id, data).then(parseNonPOJO);
 
-            return { success: true, message: 'Profile saved.' };
+            return { changeProfileSuccess: true, message: 'Profile saved.' };
         } catch (e: any) {
             console.log(e)
             if (e.status === 400 || e.status === 404) {
-                return invalid(e.status, { failed: true, message: 'Failed to update profile' });
+                return invalid(e.status, { changeProfileFailed: true, message: 'Failed to update profile' });
             }
             throw error(e.status, e.message);
         }
@@ -65,10 +65,10 @@ export const actions: Actions = {
             };
 
             const newFollower = await locals.pb.collection('followers').create(data).then(parseNonPOJO);
-            return { success: true, message: 'User added to following!', newFollower };
+            return { followSuccess: true, message: 'User added to following!', newFollower };
         } catch (e: any) {
             if (e.status === 400 || e.status === 404) {
-                return invalid(e.status, { failed: true, message: 'Failed to follow user.' });
+                return invalid(e.status, { followFailed: true, message: 'Failed to follow user.' });
             }
             throw error(e.status, 'Something went wrong!');
         }
@@ -80,10 +80,10 @@ export const actions: Actions = {
 
         try {
             await locals.pb.collection('followers').delete(followId?.toString()!);
-            return { success: true, message: 'User removed from following.' };
+            return { unfollowSuccess: true, message: 'User removed from following.' };
         } catch (e: any) {
             if (e.status === 400 || e.status === 404) {
-                return invalid(e.status, { failed: true, message: 'Failed to unfollow user!' });
+                return invalid(e.status, { unfollowFailed: true, message: 'Failed to unfollow user!' });
             }
             throw error(e.status, 'Something went wrong!');
         }
