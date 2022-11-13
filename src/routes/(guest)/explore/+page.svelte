@@ -2,15 +2,15 @@
 	import { languages } from '$lib/stores/languages';
 </script>
 
-<div class="container">
+<div class="container px-2">
 	<div class="form-control m-4 flex md:flex-row items-center justify-around mb-8">
 		<div class="w-full">
-			<h1 class="text-center text-xl mb-4">All available tags</h1>
+			<h1 class="text-center text-2xl mb-4">All available tags</h1>
 		</div>
 	</div>
-	<div class="tags">
+	<div class="tags flex flex-col gap-1">
 		{#each $languages as language}
-			<div class="badge badge-neutral-content m-1">
+			<div class="text-lg">
 				<a href={`/explore/${language}/#top`}>{language}</a>
 			</div>
 		{/each}
