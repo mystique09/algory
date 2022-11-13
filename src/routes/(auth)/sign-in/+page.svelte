@@ -47,7 +47,7 @@
 			required
 		/>
 	</div>
-	<a href="/forot-password" class="text-xs text-secondary">Forgot password?</a>
+	<a href="/forgot-password" class="text-xs text-secondary">Forgot password?</a>
 	<div class="flex items-center justify-center w-full mt-6">
 		<button class="btn btn-md bg-accent border-none btn-wide btn-block text-white" type="submit"
 			>Sign in</button
