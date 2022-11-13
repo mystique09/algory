@@ -3,15 +3,15 @@
 // and what to do when importing types
 
 declare namespace App {
-    interface Locals {
-        pb: import("pocketbase").default,
-        session: import("pocketbase").BaseModel | import("pocketbase").Admin | null,
-    }
-    // interface PageData {}
-    // interface Error {}
-    // interface Platform {}
+	interface Locals {
+		pb: import("pocketbase").default;
+		session: import("pocketbase").BaseModel | import("pocketbase").Admin | null;
+	}
+	// interface PageData {}
+	// interface Error {}
+	// interface Platform {}
 }
 
 interface ImportMetaEnv {
-    VITE_BACKEND_URL: string;
+	VITE_BACKEND_URL: string;
 }
