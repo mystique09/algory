@@ -1,0 +1,15 @@
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    },
+    "ignore": ["node_modules/", ".svelte-kit/"]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "tab",
+    "lineWidth": 120,
+     "ignore": ["node_modules/", ".svelte-kit/"]
+  }
+}
