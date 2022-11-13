@@ -67,12 +67,13 @@
 						</div>
 					{:else}
 						<li>
-							<a href="/sign-in" class="btn btn-outline btn-primary text-xs">Sign in</a>
+							<a href="/sign-in" class="btn btn-outline normal-case btn-primary text-xs">Sign in</a>
 						</li>
 						<li>
 							<a
 								href="/sign-up"
-								class="btn btn-secondary text-content-secondary rounded-box ml-2 text-xs">Sign up</a
+								class="btn btn-secondary normal-case text-content-secondary rounded-box ml-2 text-xs"
+								>Sign up</a
 							>
 						</li>
 					{/if}
