@@ -15,8 +15,7 @@
 						</div>
 					</div>
 					<div class="info">
-						<h3 class="text-xs">Id: {profile.id}</h3>
-						<a class="text-md underline text-accent" href={`/users/${profile.id}`}>{profile.name}</a
+						<a class="text-md text-primary" href={`/users/${profile.id}`}>{profile.name}</a
 						>
 					</div>
 				</div>
