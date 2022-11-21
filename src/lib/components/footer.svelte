@@ -7,9 +7,9 @@
 
 {#if !!$page.data.authenticated}
 	<div class="btm-nav md:hidden bg-base-120">
-		<a class="hover:active hover:scale-110 text-accent" href="/questions"><GlobeIcon /></a>
-		<a class="hover:active hover:scale-110 text-accent" href="/explore"><MagnifyingGlassIcon /></a>
-		<a class="hover:active hover:scale-110 text-accent" href="/settings"><GearIcon /></a>
+		<a class="hover:active hover:scale-110" href="/questions"><GlobeIcon /></a>
+		<a class="hover:active hover:scale-110" href="/explore"><MagnifyingGlassIcon /></a>
+		<a class="hover:active hover:scale-110" href="/settings"><GearIcon /></a>
 	</div>
 {/if}
 
