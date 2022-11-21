@@ -114,7 +114,7 @@
 					>
 				</li>
 				<li>
-					<a href="/sign-up" class="btn btn-accent text-accent-content text-xs">Sign up</a>
+					<a href="/sign-up" class="btn btn-primary text-primary-content text-md">Sign up</a>
 				</li>
 			{/if}
 		</ul>
