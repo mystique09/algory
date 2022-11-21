@@ -86,10 +86,10 @@
 		</div>
 		<h1 class="text-lg font-bold my-2">Update account info</h1>
 		<div class="divider" />
-		<div class="flex flex-row my-2 items-center justify-end">
+		<div class="flex flex-row my-2 items-center justify-end px-2">
 			<div class="h-4 w-4">
 				<button on:click={() => (isChangeProfileEnabled = true)}>
-					<EditIcon color="#1209b9" />
+					<EditIcon />
 				</button>
 			</div>
 		</div>
