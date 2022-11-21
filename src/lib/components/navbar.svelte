@@ -32,10 +32,10 @@
 			</div>
 			<div class="navbar-center">
 				<ul class="menu menu-horizontal hidden md:menu md:menu-horizontal">
-					<li><a href="/questions"><HouseIcon color="#EDEDED" />Questions</a></li>
-					<li><a href="/users"><UsersIcon color="#EDEDED" />Users</a></li>
+					<li><a href="/questions"><HouseIcon />Questions</a></li>
+					<li><a href="/users"><UsersIcon />Users</a></li>
 					<li>
-						<a href="/explore"><MagnifyingGlassIcon className="fill-neutral-content" />Explore</a>
+						<a href="/explore"><MagnifyingGlassIcon />Explore</a>
 					</li>
 				</ul>
 			</div>
@@ -49,14 +49,14 @@
 							</button>
 							<button
 								tabindex="0"
-								class="w-full dropdown-content menu menu-center p-2 shadow-lg rounded-box w-auto bg-base-100 text-neutral"
+								class="dropdown-content menu menu-center p-2 shadow-lg rounded-box w-auto bg-base-100 text-neutral"
 							>
 								<ul>
 									<li>
 										<a href={`/users/${$page.data.user.id}`}><UserIcon />Profile</a>
 									</li>
 									<li>
-										<a href="/settings"><GearIcon color="#2E2730" />Settings</a>
+										<a href="/settings"><GearIcon />Settings</a>
 									</li>
 								</ul>
 								<div class="divider" />
@@ -100,7 +100,7 @@
 			<li class="mb-2"><a href="/explore"><MagnifyingGlassIcon />Explore</a></li>
 			{#if $page.data.authenticated}
 				<li>
-					<a href="/settings"><GearIcon color="#2E2730" />Settings</a>
+					<a href="/settings"><GearIcon />Settings</a>
 				</li>
 				<li><a href={`/users/${$page.data.user.id}`}><UserIcon />Profile</a></li>
 				<div class="divider" />
@@ -109,12 +109,12 @@
 				>
 			{:else}
 				<li>
-					<a href="/sign-in" class="btn btn-outline mb-2 btn-accent text-accent-content text-xs"
+					<a href="/sign-in" class="btn btn-outline mb-2 btn-primary text-primary-content text-md"
 						>Sign in</a
 					>
 				</li>
 				<li>
-					<a href="/sign-up" class="btn btn-secondary text-secondary-content text-xs">Sign up</a>
+					<a href="/sign-up" class="btn btn-accent text-accent-content text-xs">Sign up</a>
 				</li>
 			{/if}
 		</ul>
