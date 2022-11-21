@@ -75,12 +75,12 @@
 	</div>
 	<div class="flex items-center justify-center w-full mt-6">
 		<button
-			class="btn btn-md bg-accent border-none btn-block btn-wide text-accent-content"
+			class="btn btn-md bg-accent border-none btn-wide text-accent-content"
 			type="submit">Sign up</button
 		>
 	</div>
 	<p class="text-center text-sm mt-4">
-		Already registered? <a class="text-secondary" href="/sign-in">Login</a>
+		Already registered? <a class="text-accent-cotent" href="/sign-in">Login</a>
 	</p>
 </form>
 

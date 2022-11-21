@@ -9,8 +9,8 @@
 		"test": "playwright test",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write ."
+		"lint": "rome check . --apply-suggested",
+		"format": "rome format . --write"
 	},
 	"devDependencies": {
 		"@fontsource/poppins": "^4.5.10",
@@ -33,6 +33,7 @@
 		"postcss-load-config": "^4.0.1",
 		"prettier": "^2.7.1",
 		"prettier-plugin-svelte": "^2.8.0",
+		"rome": "^10.0.1",
 		"svelte": "^3.52.0",
 		"svelte-check": "^2.9.2",
 		"svelte-preprocess": "^4.10.7",

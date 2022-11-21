@@ -8,7 +8,7 @@
 	<h2 class="text-2xl">{title}</h2>
 	<div class="info">
 		<p class="text-2xs">
-			<span class="text-gray-500">Author </span><a class="text-accent" href={`/users/${author}`}
+			<span>Author </span><a class="text-primary" href={`/users/${author}`}
 				>{author}</a
 			>
 		</p>

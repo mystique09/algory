@@ -49,15 +49,17 @@
 			/>
 		{/each}
 	{:else}
-		<h1 class="text-4xl">No questions yet!</h1>
+		<h1 class="text-4xl">No questions yet :(</h1>
 	{/if}
 </div>
 
-<div class="btn-group flex items-center justify-center m-4 gap-1">
-	<a disabled={prevPage === 0} href={`/questions?page=${prevPage}`} class="btn btn-wide text-xs"
-		>Previous</a
-	>
-	<a disabled={nextPage === numPages} href={`/questions?page=${nextPage + 1}`} class="btn text-xs"
-		>Next</a
-	>
-</div>
+{#if data.questions.totalItems > 10 && data.questions.totalPages > 1}
+	<div class="btn-group flex items-center justify-center m-4 gap-1">
+		<a disabled={prevPage === 0} href={`/questions?page=${prevPage}`} class="btn btn-wide text-xs"
+			>Previous</a
+		>
+		<a disabled={nextPage === numPages} href={`/questions?page=${nextPage + 1}`} class="btn text-xs"
+			>Next</a
+		>
+	</div>
+{/if}
