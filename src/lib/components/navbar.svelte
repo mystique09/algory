@@ -72,7 +72,7 @@
 						<li>
 							<a
 								href="/sign-up"
-								class="btn btn-secondary normal-case text-content-secondary rounded-box ml-2 text-xs"
+								class="btn btn-primary normal-case text-content-primary rounded-box ml-2 text-xs"
 								>Sign up</a
 							>
 						</li>
@@ -114,7 +114,7 @@
 					>
 				</li>
 				<li>
-					<a href="/sign-up" class="btn btn-primary text-primary-content text-md">Sign up</a>
+					<a href="/sign-up" class="btn btn-accent text-accent-content text-md">Sign up</a>
 				</li>
 			{/if}
 		</ul>
