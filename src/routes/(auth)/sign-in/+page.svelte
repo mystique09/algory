@@ -47,14 +47,14 @@
 			required
 		/>
 	</div>
-	<a href="/forgot-password" class="text-xs text-secondary">Forgot password?</a>
+	<a href="/forgot-password" class="text-xs text-secondary-content">Forgot password?</a>
 	<div class="flex items-center justify-center w-full mt-6">
-		<button class="btn btn-md bg-accent border-none btn-wide btn-block text-white" type="submit"
+		<button class="btn btn-md bg-accent border-none btn-wide text-accent-content" type="submit"
 			>Sign in</button
 		>
 	</div>
 	<p class="text-center text-sm mt-4">
-		New to Algory? <a class="text-secondary" href="/sign-up">Create an account</a>
+		New to Algory? <a class="text-secondary-content" href="/sign-up">Create an account</a>
 	</p>
 </form>
 
