@@ -1,10 +1,10 @@
 import type { PageServerLoad } from "./$types";
-import { error, invalid, redirect, type Actions } from "@sveltejs/kit";
+import { error, invalid, redirect } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({ parent, params, locals }) => {
 	const { user } = await parent();
 
-	if (verified) {
+	if (user.verified) {
 		throw redirect(307, "/questions");
 	}
 
