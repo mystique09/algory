@@ -8,11 +8,11 @@
 			<h1 class="text-center text-2xl mb-4">All available tags</h1>
 		</div>
 	</div>
-	<div class="tags flex flex-col gap-1">
+	<ul class="tags flex flex-col gap-1">
 		{#each $languages as language}
-			<div class="text-lg">
+			<ol class="text-lg">
 				<a href={`/explore/${language}/#top`}>{language}</a>
-			</div>
+			</ol>
 		{/each}
-	</div>
+	</ul>
 </div>
