@@ -6,7 +6,6 @@
 	import type { ActionData } from './$types';
 
 	export let data: PageData;
-
 	export let form: ActionData;
 
 	let isFollowing = data.authenticated
@@ -31,7 +30,22 @@
 
 <div class="container">
 	<div class="wrap">
-		<ProfileHeading {data} {followers} {following} {isFollowing} />
+		<ProfileHeading
+			userInfo={{
+				userId: data.user?.id,
+				infoId: data.info.id,
+				isAuthenticated: data.authenticated
+			}}
+			userData={{
+				name: data.info.name ?? '',
+				bio: data.info.bio ?? '',
+				social: data.info.github ?? '',
+				followers,
+				following,
+				followId: data.followId,
+				isFollowing
+			}}
+		/>
 		<ProfileActivities
 			totalQuestions={data.info.questions.length}
 			questions={data.info.expand.questions}
