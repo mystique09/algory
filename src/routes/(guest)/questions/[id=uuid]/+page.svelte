@@ -1,14 +1,21 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { toast } from '$lib/stores/toast';
 	import QuestionAnswers from '$lib/components/question/question_answers.svelte';
 	import QuestionContent from '$lib/components/question/question_content.svelte';
 	import QuestionForm from '$lib/components/question/question_form.svelte';
 	import QuestionHeading from '$lib/components/question/question_heading.svelte';
-	import { toast } from '$lib/stores/toast';
 
 	import type { PageData } from './$types';
+	import type { ActionData } from './$types';
 
 	export let data: PageData;
+	export let form: ActionData;
+
+	if (form?.upvoteFailed || form?.downvoteFailed) {
+		toast.error(form?.message!, 5000);
+	}
+
 	let totalUpvotes = data.upvotes.length;
 	let totalDownvotes = data.downvotes.length;
 
@@ -22,14 +29,6 @@
 				return vote.user === data.user.id;
 		  })
 		: false;
-
-	import type { ActionData } from './$types';
-
-	export let form: ActionData;
-
-	if (form?.upvoteFailed || form?.downvoteFailed) {
-		toast.error(form?.message!, 5000);
-	}
 </script>
 
 <QuestionHeading

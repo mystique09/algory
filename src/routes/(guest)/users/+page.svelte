@@ -15,8 +15,8 @@
 						</div>
 					</div>
 					<div class="info">
-						<a class="text-md text-primary" href={`/users/${profile.id}`}>{profile.name}</a
-						>
+						<a class="text-lg text-primary" href={`/users/${profile.id}`}>{profile.name}</a>
+						<p class="text-xs font-normal">{profile.bio ?? ''}</p>
 					</div>
 				</div>
 			{/each}

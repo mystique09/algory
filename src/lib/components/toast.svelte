@@ -6,7 +6,7 @@
 </script>
 
 {#if $toast}
-	<div class="fixed bottom-20 z-30 toast toast-start toast-bottom h-auto">
+	<div class="fixed top-20 z-30 toast toast-end toast-top h-auto">
 		{#each $toast as alert (alert.id)}
 			<div animate:flip transition:fly={{ y: 30 }}>
 				<Alert type={alert.type} message={alert.message} />

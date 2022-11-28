@@ -1,31 +1,14 @@
 <script lang="ts">
-	import type { PageData } from '.svelte-kit/types/src/routes/(guest)/users/[id=uuid]/$types';
 	import ProfileHeadingBanner from './profile_heading_banner.svelte';
 	import ProfileHeadingInfo from './profile_heading_info.svelte';
-	export let data: PageData;
-	export let followers: number;
-	export let following: number;
-	export let isFollowing: boolean;
+
+	export let userInfo: UserInfoProp;
+	export let userData: UserDataProp;
 </script>
 
 <div class="heading">
-	<ProfileHeadingBanner
-		authenticated={data.authenticated}
-		userId={data.user?.id}
-		id={data.info.id}
-	/>
-	<ProfileHeadingInfo
-		{followers}
-		{following}
-		followId={data.followId}
-		{isFollowing}
-		authenticated={data.authenticated}
-		name={data.info.name}
-		bio={data.info.bio}
-		userId={data.user?.id}
-		id={data.info.id}
-		social={data.info?.github}
-	/>
+	<ProfileHeadingBanner {userInfo} />
+	<ProfileHeadingInfo {userInfo} {userData} />
 </div>
 
 <style lang="postcss">
