@@ -1,17 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-
 	import Question from '$lib/components/question.svelte';
 	import { toast } from '$lib/stores/toast';
 	import type { PageData } from './$types';
-
-	export let data: PageData;
-
-	$: numPages = Number($page.url.searchParams.get('page')) || 1;
-	$: prevPage = numPages - 1 || numPages;
-	$: nextPage = numPages % data.questions.totalPages;
 	import type { ActionData } from './$types';
+
 	export let form: ActionData;
+	export let data: PageData;
 
 	if (form?.titleInvalid || form?.creationError || form?.contentInvalid || form?.tagsInvalid) {
 		toast.error(form?.tags, 3500);
@@ -20,6 +15,10 @@
 	if (form?.creationSuccess) {
 		toast.success('New question created.');
 	}
+
+	$: numPages = Number($page.url.searchParams.get('page')) || 1;
+	$: prevPage = numPages - 1 || numPages;
+	$: nextPage = numPages % data.questions.totalPages;
 </script>
 
 <svelte:head>
