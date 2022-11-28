@@ -1,38 +1,12 @@
-# create-svelte
+# Algory(silly name, right?)
+Algory is just another stackoverflow clone, where you can ask a question, answer a question, downvote/upvote a queston, follow user, edit profile, and change password/username, you can even delete your account in settings!
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+---
 
-## Creating a project
+This is just another personal project, I want to try the latest version of pocketbase and sveltekit so I made with website out of boredom.
 
-If you're seeing this, you've probably already done this step. Congrats!
+> **Warning**
+> Not feature complete, request for email change, email verification, and request for password reset is not working since I don't have mail server.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+> **Note**
+> If you found a bug please submit an issue.
