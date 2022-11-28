@@ -38,7 +38,7 @@
 						name="tags"
 						max={4}
 						multiple
-						class="select select-bordered w-full max-w-xs"
+						class="select select-bordered w-full max-w-md"
 					>
 						<option disabled selected>Select tag</option>
 						{#each $languages as programmingLanguage}
@@ -57,8 +57,8 @@
 						id="content"
 						type="text"
 						required
-						placeholder="I encountered this problem...(atleast 6 characters)"
-						class="textarea textarea-bordered text-xs h-18"
+						placeholder="I encountered this problem...(elaborate your problem)"
+						class="textarea textarea-bordered text-xs h-56 resize-none"
 					/>
 				</div>
 			</div>
