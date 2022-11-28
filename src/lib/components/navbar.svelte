@@ -93,7 +93,7 @@
 		<label for="algory-drawer" class="drawer-overlay" />
 		<ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
 			<div class="flex items-center justify-center mb-2">
-				<AlgoryIcon color="#2E2730" />
+				<AlgoryIcon className="fill-primary" />
 			</div>
 			<li><a href="/questions"><HouseIcon />Questions</a></li>
 			<li><a href="/users"><UsersIcon />Users</a></li>
