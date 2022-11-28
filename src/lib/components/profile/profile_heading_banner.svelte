@@ -1,9 +1,8 @@
 <script lang="ts">
 	import EditIcon from '../icons/edit_icon.svelte';
 	import { isEditingMode } from '$lib/stores/profile';
-	export let userId: string;
-	export let id: string;
-	export let authenticated: boolean;
+
+	export let userInfo: UserInfoProp;
 </script>
 
 <div
@@ -25,8 +24,8 @@
 			</div>
 		</div>
 	</div>
-	{#if authenticated}
-		{#if userId === id}
+	{#if userInfo.isAuthenticated}
+		{#if userInfo.userId === userInfo.infoId}
 			<button
 				on:click={() => ($isEditingMode = !$isEditingMode)}
 				type="button"

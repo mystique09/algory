@@ -5,20 +5,13 @@
 	import UserMinusSolid from '../icons/user-minus-solid.svelte';
 	import UserPlusSolid from '../icons/user-plus-solid.svelte';
 
-	export let name: string;
-	export let bio: string;
-	export let followers: number;
-	export let following: number;
-	export let isFollowing: boolean;
-	export let authenticated: boolean;
-	export let userId: string;
-	export let id: string;
-	export let social: string;
-	export let followId: string;
+	export let userInfo: UserInfoProp;
+	export let userData: UserDataProp;
 
-	$: totalFollowers = followers;
-	$: isFollowing = isFollowing;
-	$: fId = followId;
+	$: totalFollowers = userData.followers;
+	$: isFollowing = userData.isFollowing;
+	$: fId = userData.followId;
+	let bioValue = userData.bio;
 
 	async function handleFollow() {
 		if (isFollowing) {
@@ -58,8 +51,6 @@
 			}
 		}
 	}
-
-	let bioValue: string = bio;
 </script>
 
 <div class="info w-full mt-2 px-4">
@@ -75,7 +66,7 @@
 							class="w-full input input-xs input-ghost text-lg py-2 my-2"
 							type="text"
 							placeholder="New name"
-							value={name}
+							value={userData.name}
 						/>
 					</div>
 					<div class="input-group-vertical">
@@ -85,7 +76,7 @@
 							name="github"
 							type="text"
 							class="w-full input input-xs input-ghost py-2 my-2"
-							value={social}
+							value={userData.social}
 							placeholder="Github username"
 						/>
 					</div>
@@ -110,21 +101,21 @@
 					</div>
 				</form>
 			{:else}
-				<h1 class="text-2xl text-bold">{name}</h1>
-				{#if social}
+				<h1 class="text-2xl text-bold">{userData.name}</h1>
+				{#if userData.social}
 					<a
 						class="text-xs link link-secondary"
-						href={`https://github.com/${social}`}
+						href={`https://github.com/${userData.social}`}
 						target="_blank"
 						rel="noreferrer">Github</a
 					>
 				{/if}
 			{/if}
 			<p class="text-xs">{totalFollowers} Followers</p>
-			<p class="text-xs">{following} Following</p>
+			<p class="text-xs">{userData.following} Following</p>
 		</div>
-		{#if authenticated}
-			{#if userId !== id}
+		{#if userInfo.isAuthenticated}
+			{#if userInfo.userId !== userInfo.infoId}
 				<div class="profile-actions flex flex-row items-center justify-end">
 					<!-- <form action={`${isFollowing ? '?/unfollowUser' : '?/followUser'}`} method="POST">
 						<input name="followId" id="followId" type="text" hidden value={followId} /> -->
@@ -135,9 +126,9 @@
 					>
 						<div class="w-5 h-5">
 							{#if isFollowing}
-								<UserMinusSolid className="fill-accent-content" />
+								<UserMinusSolid className="fill-accent" />
 							{:else}
-								<UserPlusSolid className="fill-accent-content" />
+								<UserPlusSolid className="fill-accent" />
 							{/if}
 						</div>
 					</button>
@@ -148,7 +139,7 @@
 	</div>
 	<div class="bottom mt-2">
 		<p class="text-xs font-light">
-			{bio || ''}
+			{userData.bio || ''}
 		</p>
 	</div>
 	<div class="divider" />
