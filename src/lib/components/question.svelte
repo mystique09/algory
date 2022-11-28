@@ -9,7 +9,7 @@
 	export let answers: number;
 </script>
 
-<main
+<div
 	class="min-h-48 max-w-lg w-full shadow-md py-2 px-3 rounded-sm my-2 bg-neutral text-neutral-content"
 >
 	<div class="status text-xs mb-2">
@@ -17,12 +17,12 @@
 		<span class="text-gray-500">{answers} answers</span>
 		<span>{views} views</span>
 	</div>
-	<a class="text-primary" href={`/questions/${id}`}>{title}</a>
+	<a class="text-secondary" href={`/questions/${id}`}>{title}</a>
 	<p class="text-xs mt-1 whitespace-nowrap overflow-hidden text-ellipsis">{content}</p>
 	<div class="info flex flex-wrap gap-2 items-center justify-between mt-4">
 		<div class="tags">
 			{#each tags as tag}
-				<a href={`/explore/${tag}`} class="text-xs p-1 bg-primary/20 text-primary m-1">{tag}</a>
+				<a href={`/explore/${tag}`} class="text-xs p-1 bg-secondary/20 text-secondary m-1">{tag}</a>
 			{/each}
 		</div>
 		<div class="profile flex items-center">
@@ -32,4 +32,4 @@
 			<span class="text-xs">{author}</span>
 		</div>
 	</div>
-</main>
+</div>
