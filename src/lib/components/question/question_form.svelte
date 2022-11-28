@@ -10,14 +10,14 @@
 				disabled={!authenticated}
 				id="answer"
 				name="answer"
-				class="textarea textarea-bordered textarea-accent h-48 w-full max-w-lg resize-none"
+				class="textarea textarea-bordered textarea-neutral h-48 w-full max-w-lg resize-none"
 				placeholder={`${!authenticated ? 'Sign in to answer' : 'Yada yada...'}`}
 			/>
 		</div>
 		{#if authenticated}
-			<button id="submit" class="mt-4 px-12 py-3 bg-accent text-accent-content"
-				>Submit answer</button
-			>
+			<div class="w-full">
+				<button id="submit" class="mt-4 btn btn-primary btn-wide normal-case">Submit answer</button>
+			</div>
 		{/if}
 	</form>
 </div>
