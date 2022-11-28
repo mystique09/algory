@@ -1,11 +1,6 @@
 <script lang="ts">
 	import Answer from '../answer/answer.svelte';
 
-	type Answer = {
-		author: string;
-		content: string;
-	};
-
 	export let answers: Answer[];
 </script>
 
@@ -14,7 +9,12 @@
 		<p>Be the first one to comment!</p>
 	{:else}
 		{#each answers as answer}
-			<Answer author={answer.author} content={answer.content} />
+			<Answer
+				answer={{
+					content: answer.content,
+					author: answer.author
+				}}
+			/>
 		{/each}
 	{/if}
 </div>
