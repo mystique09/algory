@@ -63,7 +63,7 @@
 	}
 </script>
 
-<div class="wrap h-auto p-2">
+<div class="max-w-4xl w-full m-auto wrap h-auto p-2 mb-24">
 	{#if !data.user.verified}
 		<div class="alert alert-warning text-xs flex flex-row items-center justify-between mb-4">
 			<div class="flex flex-row items-center">
