@@ -3,7 +3,7 @@
 	export let data: PageData;
 </script>
 
-<div class="px-4">
+<div class="relative max-w-4xl m-auto w-full h-screen mb-24 p-2">
 	<h1 class="text-xl font-bold text-center">All available users</h1>
 	{#if !!data.profiles}
 		<div class="users flex flex-col gap-2 mt-8">

@@ -12,7 +12,7 @@
 	export let data: PageData;
 	export let form: ActionData;
 
-	if (form?.upvoteFailed || form?.downvoteFailed) {
+	if (form?.upvoteFailed || form?.downvoteFailed || form?.answerFailed) {
 		toast.error(form?.message!, 5000);
 	}
 
@@ -31,19 +31,21 @@
 		: false;
 </script>
 
-<QuestionHeading
-	title={data.question.title}
-	author={data.question.author}
-	views={data.question.views}
-/>
-<QuestionContent
-	authenticated={data.authenticated}
-	content={data.question.content}
-	tags={data.question.tags}
-	{totalUpvotes}
-	{totalDownvotes}
-	upvotes={hasUpvote}
-	downvotes={hasDownvote}
-/>
-<QuestionAnswers answers={$page.data.question.expand.answers || []} />
-<QuestionForm authenticated={data.authenticated} />
+<div class="relative p-2">
+	<QuestionHeading
+		title={data.question.title}
+		author={data.question.author}
+		views={data.question.views}
+	/>
+	<QuestionContent
+		authenticated={data.authenticated}
+		content={data.question.content}
+		tags={data.question.tags}
+		{totalUpvotes}
+		{totalDownvotes}
+		upvotes={hasUpvote}
+		downvotes={hasDownvote}
+	/>
+	<QuestionAnswers answers={$page.data.question.expand.answers || []} />
+	<QuestionForm authenticated={data.authenticated} />
+</div>

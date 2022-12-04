@@ -12,6 +12,13 @@ declare namespace App {
     // interface Platform {}
 }
 
+type AgendaProp = {
+    titleTop: string;
+    descriptionTop: string;
+    titleBottom: string;
+    descriptionBottom: string;
+};
+
 type UserInfoProp = {
     userId: string;
     infoId: string;

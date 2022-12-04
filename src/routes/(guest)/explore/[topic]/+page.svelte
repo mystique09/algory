@@ -5,9 +5,9 @@
 	export let data: PageData;
 </script>
 
-<div class="h-screen px-2">
-	<a class="link link-accent" href="/explore">Go back</a>
-	<h1 class="text-center">Explore all {$page.params.topic} topics</h1>
+<div class="h-screen px-2 max-w-4xl m-auto w-full">
+	<h1 class="text-center text-2xl mt-2">Explore all {$page.params.topic} topics</h1>
+	<div class="divider" />
 	<div
 		class="questions flex flex-col items-center justify-center"
 		class:h-screen={!data.topic.totalItems}

@@ -30,35 +30,39 @@
 	<span class="text-md">Page {numPages} of {data.questions.totalPages}</span>
 </div>
 <div class="divider" />
-<div
-	class="questions flex flex-col items-center justify-center"
-	class:h-screen={!data.questions.totalItems}
->
-	{#if data.questions.totalItems > 0}
-		{#each data.questions.items as question}
-			<Question
-				id={question.id}
-				author={question.author}
-				title={question.title}
-				content={question.content}
-				tags={question.tags}
-				views={question.views}
-				votes={question.votes.length}
-				answers={question.answers.length}
-			/>
-		{/each}
-	{:else}
-		<h1 class="text-4xl">No questions yet :(</h1>
+<div class="mb-24">
+	<div
+		class="questions flex flex-col items-center justify-center"
+		class:h-screen={!data.questions.totalItems}
+	>
+		{#if data.questions.totalItems > 0}
+			{#each data.questions.items as question}
+				<Question
+					id={question.id}
+					author={question.author}
+					title={question.title}
+					content={question.content}
+					tags={question.tags}
+					views={question.views}
+					votes={question.votes.length}
+					answers={question.answers.length}
+				/>
+			{/each}
+		{:else}
+			<h1 class="text-4xl">No questions yet :(</h1>
+		{/if}
+	</div>
+
+	{#if data.questions.totalItems > 10 && data.questions.totalPages > 1}
+		<div class="btn-group flex items-center justify-center m-4 gap-1">
+			<a disabled={prevPage === 0} href={`/questions?page=${prevPage}`} class="btn btn-wide text-xs"
+				>Previous</a
+			>
+			<a
+				disabled={nextPage === numPages}
+				href={`/questions?page=${nextPage + 1}`}
+				class="btn text-xs">Next</a
+			>
+		</div>
 	{/if}
 </div>
-
-{#if data.questions.totalItems > 10 && data.questions.totalPages > 1}
-	<div class="btn-group flex items-center justify-center m-4 gap-1">
-		<a disabled={prevPage === 0} href={`/questions?page=${prevPage}`} class="btn btn-wide text-xs"
-			>Previous</a
-		>
-		<a disabled={nextPage === numPages} href={`/questions?page=${nextPage + 1}`} class="btn text-xs"
-			>Next</a
-		>
-	</div>
-{/if}
