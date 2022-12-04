@@ -28,7 +28,7 @@
 	<meta type="description" content={data.info.bio || `Hello I am ${data.info.name}`} />
 </svelte:head>
 
-<div class="container">
+<div class="relative container">
 	<div class="wrap">
 		<ProfileHeading
 			userInfo={{
@@ -55,10 +55,10 @@
 
 <style lang="postcss">
 	.container {
-		@apply h-full w-full mb-24;
+		@apply max-w-4xl m-auto w-full h-auto mb-24 p-2;
 	}
 
 	.wrap {
-		@apply px-4 max-w-xl m-auto;
+		@apply px-4 max-w-2xl m-auto;
 	}
 </style>
