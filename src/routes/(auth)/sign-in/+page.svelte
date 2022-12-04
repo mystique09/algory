@@ -60,8 +60,8 @@
 
 <style lang="postcss">
 	form {
-		@apply px-12 py-6 m-auto w-full bg-white;
-		@apply h-full;
+		@apply max-w-xl px-12 py-6 m-auto w-full bg-white;
+		@apply h-full md:h-auto;
 		@apply shadow-md;
 	}
 
