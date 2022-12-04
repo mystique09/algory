@@ -26,9 +26,9 @@
 	<div class="drawer-content flex flex-col">
 		<div class="navbar w-full bg-neutral text-neutral-content">
 			<div class="navbar-start">
-				<div class="btn btn-ghost">
+				<a href="/" class="btn btn-ghost">
 					<AlgoryIcon />
-				</div>
+				</a>
 			</div>
 			<div class="navbar-center">
 				<ul class="menu menu-horizontal hidden md:menu md:menu-horizontal">
@@ -85,9 +85,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="top" class="md:m-auto pt-2 pb-20 w-full max-w-2xl">
-			<slot />
-		</div>
+		<slot />
 	</div>
 	<div class="drawer-side">
 		<label for="algory-drawer" class="drawer-overlay" />
@@ -114,7 +112,7 @@
 					>
 				</li>
 				<li>
-					<a href="/sign-up" class="btn btn-accent text-accent-content text-md">Sign up</a>
+					<a href="/sign-up" class="btn btn-primary text-primary-content text-md">Sign up</a>
 				</li>
 			{/if}
 		</ul>
