@@ -74,9 +74,8 @@
 		/>
 	</div>
 	<div class="flex items-center justify-center w-full mt-6">
-		<button
-			class="btn btn-md bg-accent border-none btn-wide text-accent-content"
-			type="submit">Sign up</button
+		<button class="btn btn-md bg-accent border-none btn-wide text-accent-content" type="submit"
+			>Sign up</button
 		>
 	</div>
 	<p class="text-center text-sm mt-4">
@@ -86,8 +85,8 @@
 
 <style lang="postcss">
 	form {
-		@apply px-12 py-6;
-		@apply bg-white;
+		@apply max-w-xl px-12 py-6 m-auto w-full bg-white;
+		@apply h-screen md:h-auto;
 		@apply shadow-md;
 	}
 
@@ -98,10 +97,10 @@
 
 	form > .input-group {
 		@apply flex flex-col;
-		@apply mb-4;
+		@apply mb-2;
 	}
 
 	form > .input-group label {
-		@apply text-sm;
+		@apply text-xs;
 	}
 </style>
