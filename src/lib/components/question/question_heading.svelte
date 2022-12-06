@@ -4,13 +4,11 @@
 	export let views: number;
 </script>
 
-<div class="container mt-4">
-	<h2 class="text-2xl">{title}</h2>
+<div class="container mt-4 w-full">
+	<h2>{title}</h2>
 	<div class="info">
-		<p class="text-2xs">
-			<span>Author </span><a class="text-primary" href={`/users/${author}`}
-				>{author}</a
-			>
+		<p class="text-xs">
+			<span>Author </span><a class="text-primary" href={`/users/${author}`}>{author}</a>
 		</p>
 		<p class="text-xs">
 			<span class="text-gray-500">Viewed </span>{views} times
