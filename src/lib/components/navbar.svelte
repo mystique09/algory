@@ -24,10 +24,10 @@
 <div class="drawer">
 	<input type="checkbox" id="algory-drawer" class="drawer-toggle" />
 	<div class="drawer-content flex flex-col">
-		<div class="navbar w-full bg-neutral text-neutral-content">
+		<div class="navbar w-full bg-base-100 text-base-100-content shadow-sm">
 			<div class="navbar-start">
 				<a href="/" class="btn btn-ghost">
-					<AlgoryIcon />
+					<AlgoryIcon className="fill-primary" />
 				</a>
 			</div>
 			<div class="navbar-center">
@@ -44,8 +44,8 @@
 					{#if $page.data.authenticated}
 						<div class="divider divider-horizontal" />
 						<div class="dropdown dropdown-bottom dropdown-end">
-							<button class="btn btn-ghost h-12 w-12 rounded-full ring ring-accent" tabindex="0">
-								<AlgoryIcon />
+							<button class="btn btn-ghost h-12 w-12 rounded-full ring ring-primary" tabindex="0">
+								<AlgoryIcon className="fill-primary" />
 							</button>
 							<button
 								tabindex="0"
@@ -72,7 +72,7 @@
 						<li>
 							<a
 								href="/sign-up"
-								class="btn btn-primary normal-case text-content-primary rounded-box ml-2 text-xs"
+								class="btn btn-primary text-primary-content normal-case rounded-box ml-2 text-xs"
 								>Sign up</a
 							>
 						</li>
