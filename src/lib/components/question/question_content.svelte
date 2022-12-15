@@ -1,6 +1,5 @@
 <script lang="ts">
 	import ThumbsDownSolid from '../icons/thumbs-down-solid.svelte';
-
 	import ThumbsUpSolid from '../icons/thumbs-up-solid.svelte';
 
 	type Vote = {
