@@ -1,5 +1,5 @@
 import type { PageServerLoad } from "./$types";
-import { error, invalid } from "@sveltejs/kit";
+import { error, fail } from "@sveltejs/kit";
 import type { Actions } from "./$types";
 import { parseNonPOJO } from "$lib/utils/helpers";
 
@@ -45,7 +45,7 @@ export const actions: Actions = {
         const { id: author } = locals.session!;
 
         if (!answer || answer.toString().length < 6) {
-            return invalid(400, {
+            return fail(400, {
                 answerFailed: true,
                 message: "Too short, I know you have a better answer than that!",
             });
@@ -97,7 +97,7 @@ export const actions: Actions = {
 
             return { newAnswer };
         } catch (e: any) {
-            return invalid(e.status, {
+            return fail(e.status, {
                 answerFailed: true,
                 message: "Something went wrong.",
             });
@@ -148,7 +148,7 @@ export const actions: Actions = {
                 });
                 return { upvoteSuccess: true, message: "Downvoted" };
             }
-            return invalid(e.status, { upvoteFailed: true, message: e.message });
+            return fail(e.status, { upvoteFailed: true, message: e.message });
         }
     },
     async downvoteQuestion({ locals, params }) {
@@ -199,7 +199,7 @@ export const actions: Actions = {
                 });
                 return { downvoteSuccess: true, message: "Downvoted" };
             }
-            return invalid(e.status, { downvoteFailed: true, message: e.message });
+            return fail(e.status, { downvoteFailed: true, message: e.message });
         }
     },
 };

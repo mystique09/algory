@@ -1,5 +1,5 @@
 import type { Actions, PageServerLoad } from "./$types";
-import { error, invalid, redirect } from "@sveltejs/kit";
+import { error, fail, redirect } from "@sveltejs/kit";
 import { parseNonPOJO } from "$lib/utils/helpers";
 
 export const load: PageServerLoad = async ({ url: { searchParams }, locals }) => {
@@ -73,27 +73,27 @@ export const actions: Actions = {
         } catch (e: any) {
             const { data } = e.data;
             if (data.title) {
-                return invalid(e.status, {
+                return fail(e.status, {
                     titleInvalid: true,
                     tags: data.title.message,
                 });
             }
 
             if (data.content) {
-                return invalid(e.status, {
+                return fail(e.status, {
                     contentInvalid: true,
                     tags: data.content.message,
                 });
             }
 
             if (data.tags) {
-                return invalid(e.status, {
+                return fail(e.status, {
                     tagsInvalid: true,
                     tags: data.tags.message,
                 });
             }
 
-            return invalid(e.status, { creationError: true, message: e.message });
+            return fail(e.status, { creationError: true, message: e.message });
         }
     },
 };

@@ -1,25 +1,25 @@
 import type { PageServerLoad } from "./$types";
-import { error, invalid, redirect } from "@sveltejs/kit";
+import { error, fail, redirect } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({ parent, params, locals }) => {
-	const { user } = await parent();
+    const { user } = await parent();
 
-	if (user.verified) {
-		throw redirect(307, "/questions");
-	}
+    if (user.verified) {
+        throw redirect(307, "/questions");
+    }
 
-	const { token } = params;
+    const { token } = params;
 
-	try {
-		await locals.pb.collection("users").confirmVerification(token!);
-		return { confirmSuccess: true, message: "Account verified!" };
-	} catch (e: any) {
-		if (e.status === 400) {
-			return invalid(e.status, {
-				invalidToken: true,
-				message: "Missing required value.",
-			});
-		}
-		throw error(e.status, "Something went wrong!");
-	}
+    try {
+        await locals.pb.collection("users").confirmVerification(token!);
+        return { confirmSuccess: true, message: "Account verified!" };
+    } catch (e: any) {
+        if (e.status === 400) {
+            return fail(e.status, {
+                invalidToken: true,
+                message: "Missing required value.",
+            });
+        }
+        throw error(e.status, "Something went wrong!");
+    }
 };

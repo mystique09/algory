@@ -1,5 +1,5 @@
 import { parseNonPOJO } from "$lib/utils/helpers";
-import { error, invalid } from "@sveltejs/kit";
+import { error, fail } from "@sveltejs/kit";
 import type { PageServerLoad, Actions } from "./$types";
 
 export const load: PageServerLoad = async ({ params, locals }) => {
@@ -61,7 +61,7 @@ export const actions: Actions = {
         } catch (e: any) {
             console.log(e);
             if (e.status === 400 || e.status === 404) {
-                return invalid(e.status, {
+                return fail(e.status, {
                     changeProfileFailed: true,
                     message: "Failed to update profile",
                 });
@@ -89,7 +89,7 @@ export const actions: Actions = {
             };
         } catch (e: any) {
             if (e.status === 400 || e.status === 404) {
-                return invalid(e.status, {
+                return fail(e.status, {
                     followFailed: true,
                     message: "Failed to follow user.",
                 });
@@ -107,7 +107,7 @@ export const actions: Actions = {
             return { unfollowSuccess: true, message: "User removed from following." };
         } catch (e: any) {
             if (e.status === 400 || e.status === 404) {
-                return invalid(e.status, {
+                return fail(e.status, {
                     unfollowFailed: true,
                     message: "Failed to unfollow user!",
                 });
